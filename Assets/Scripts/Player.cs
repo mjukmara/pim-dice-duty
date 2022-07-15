@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
 	Rigidbody2D rb;
 
+	bool interact = false;
+
     void Start()
     {
 		transform.localScale = transform.localScale - new Vector3(
@@ -27,13 +29,31 @@ public class Player : MonoBehaviour
 		movement.Normalize();
 
 		rb.velocity = movement * speed;
-    }
 
-	void OnColliderStay2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "PickupPoint" && Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
+			Debug.Log("Space pressed");
+			interact = true;
+		}
+		if (Input.GetKeyUp(KeyCode.Space))
+		{
+			Debug.Log("Space released");
+			interact = false;
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "PickupPoint" && interact)
+		{
+			this.interact = false;
 			// Do pickup stuff
+			PickupPoint pickupPoint = other.gameObject.GetComponent<PickupPoint>();
+			Resource resource = pickupPoint.RemoveResource();
+			if (resource)
+			{
+				Debug.Log("Picked up resource:" + resource.label);
+			}
 		}
 	}
 }
