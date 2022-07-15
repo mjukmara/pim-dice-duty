@@ -2381,6 +2381,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1233690656}
     m_Modifications:
+    - target: {fileID: -1418748818692970843, guid: 1304e472819bc9eed8d72c269999e6b8, type: 3}
+      propertyPath: resource
+      value: 
+      objectReference: {fileID: 11400000, guid: d78f33765f47e844d98dd2834f73e5ca, type: 2}
     - target: {fileID: 2172803651941613633, guid: 1304e472819bc9eed8d72c269999e6b8, type: 3}
       propertyPath: m_Name
       value: Pickup
@@ -2659,7 +2663,7 @@ PrefabInstance:
     - target: {fileID: -1418748818692970843, guid: 1304e472819bc9eed8d72c269999e6b8, type: 3}
       propertyPath: resource
       value: 
-      objectReference: {fileID: 11400000, guid: 2b5771c95c087f045b30408fa2890286, type: 2}
+      objectReference: {fileID: 11400000, guid: d78f33765f47e844d98dd2834f73e5ca, type: 2}
     - target: {fileID: 2172803651941613633, guid: 1304e472819bc9eed8d72c269999e6b8, type: 3}
       propertyPath: m_Name
       value: Pickup

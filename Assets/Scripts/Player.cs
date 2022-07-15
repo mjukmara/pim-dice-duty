@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 	public float speed = 1000.0f;
 
 	Rigidbody2D rb;
+	Inventory inventory;
+	Chef chef;
 
 	bool interact = false;
 
@@ -18,7 +20,9 @@ public class Player : MonoBehaviour
 			transform.localScale.z % (1.0f / 16)
 		);
 		rb = gameObject.GetComponent<Rigidbody2D>();
-    }
+		inventory = gameObject.GetComponent<Inventory>();
+		chef = gameObject.GetComponent<Chef>();
+	}
 
     void Update()
     {
@@ -32,12 +36,10 @@ public class Player : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Debug.Log("Space pressed");
 			interact = true;
 		}
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
-			Debug.Log("Space released");
 			interact = false;
 		}
 	}
@@ -52,7 +54,9 @@ public class Player : MonoBehaviour
 			Resource resource = pickupPoint.RemoveResource();
 			if (resource)
 			{
-				Debug.Log("Picked up resource:" + resource.label);
+				inventory.AddItem(resource);
+
+				Recipe cookedRecipe = chef.TryCookAnyRecipe(); // TODO: This should return the Recipe that was cooked
 			}
 		}
 	}

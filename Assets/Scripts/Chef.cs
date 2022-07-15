@@ -6,16 +6,34 @@ public class Chef : MonoBehaviour
 {
     public CookBook cookBook;
 
-    public void TryCookAnyRecipe(List<Resource> resources)
+    Inventory inventory;
+
+    public void Start()
     {
-        List<Recipe> possibleRecipes = CookBook.FindAllPossibleRecipes(this.cookBook, resources);
+        this.inventory = gameObject.GetComponent<Inventory>();
+    }
+
+    public Recipe TryCookAnyRecipe()
+    {
+        List<Recipe> possibleRecipes = CookBook.FindAllPossibleRecipes(this.cookBook, this.inventory.GetItems());
         if (possibleRecipes.Count == 0)
         {
-            Debug.Log("No recipes could be made!");
-            return;
+            return null;
         }
 
         Recipe recipe = possibleRecipes[Random.Range(0, possibleRecipes.Count)];
-        Debug.Log("I can make recipe: " + recipe.label);
+        Debug.Log("Making recipe: " + recipe.label);
+
+        foreach (Resource resource in recipe.consumes)
+        {
+            this.inventory.RemoveItem(resource);
+        }
+
+        foreach (Resource resource in recipe.produces)
+        {
+            this.inventory.AddItem(resource);
+        }
+
+        return recipe;
     }
 }

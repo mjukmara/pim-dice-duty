@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8350590983893153118}
   - component: {fileID: 8350590983893153116}
   - component: {fileID: 2705371969435634743}
+  - component: {fileID: 313492724527723370}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,6 +110,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookBook: {fileID: 11400000, guid: 46b042a21fdbe8f4ba548f4aa00a64e6, type: 2}
+--- !u!114 &313492724527723370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8350590983893153104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a305e90e48d5847aa26da36a1e0d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8350590983999518507
 GameObject:
   m_ObjectHideFlags: 0
