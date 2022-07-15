@@ -14,11 +14,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-		transform.localScale = transform.localScale - new Vector3(
-			transform.localScale.x % (1.0f / 16),
-			transform.localScale.y % (1.0f / 16),
-			transform.localScale.z % (1.0f / 16)
-		);
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		inventory = gameObject.GetComponent<Inventory>();
 		chef = gameObject.GetComponent<Chef>();
