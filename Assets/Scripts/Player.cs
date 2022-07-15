@@ -28,4 +28,12 @@ public class Player : MonoBehaviour
 
 		rb.velocity = movement * speed;
     }
+
+	void OnColliderStay2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "PickupPoint" && Input.GetKeyDown(KeyCode.Space))
+		{
+			// Do pickup stuff
+		}
+	}
 }
