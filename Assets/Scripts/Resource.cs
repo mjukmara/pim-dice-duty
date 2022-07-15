@@ -6,4 +6,5 @@ using UnityEngine;
 public class Resource : ScriptableObject
 {
     public string label;
+    public GameObject displayPrefab;
 }

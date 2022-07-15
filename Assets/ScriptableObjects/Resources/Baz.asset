@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Baz
   m_EditorClassIdentifier: 
   label: Baz
+  displayPrefab: {fileID: 7627756711766496042, guid: fdafa7d1f80e4ea4db0f7829adeee2ef, type: 3}
