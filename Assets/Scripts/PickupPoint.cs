@@ -9,32 +9,46 @@ public class PickupPoint : MonoBehaviour
 
     void Start()
     {
-        this.InstantiateDisplayPrefab();
+        if (this.HasResource()) {
+            this.InstantiateDisplayPrefab();
+        }
     }
 
     private void InstantiateDisplayPrefab()
     {
         if (!this.HasResource()) return;
 
-        if (this.displayPrefab)
-        {
-            GameObject.Destroy(this.displayPrefab);
-        }
+        this.DestroyDisplayPrefab();
 
         this.displayPrefab = Instantiate(this.resource.displayPrefab);
         this.displayPrefab.transform.SetParent(transform);
         this.displayPrefab.transform.localPosition = Vector3.zero;
     }
 
+    private void DestroyDisplayPrefab()
+    {
+        if (this.displayPrefab)
+        {
+            GameObject.Destroy(this.displayPrefab);
+        }
+    }
+
     public bool AddResource(Resource resource)
     {
-        if (HasResource())
-        {
-            return false;
-        }
+        if (HasResource())  return false;
 
         this.resource = resource;
+        this.InstantiateDisplayPrefab();
+
         return true;
+    }
+
+    public Resource RemoveResource()
+    {
+        Resource temp = this.resource;
+        this.DestroyDisplayPrefab();
+        this.resource = null;
+        return temp;
     }
 
     public bool HasResource()
