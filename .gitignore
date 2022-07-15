@@ -24,6 +24,9 @@
 
 .vscode/
 
+# Ignore build props
+*.Build.props
+
 # Gradle cache directory
 .gradle/
 
