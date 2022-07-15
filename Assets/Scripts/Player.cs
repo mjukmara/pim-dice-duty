@@ -21,6 +21,6 @@ public class Player : MonoBehaviour
 		Vector2 movement = new Vector2(x, y);
 		movement.Normalize();
 
-		rb.velocity = movement * speed * Time.deltaTime;
+		rb.velocity = movement * speed;
     }
 }
