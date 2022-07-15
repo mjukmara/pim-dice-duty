@@ -4,55 +4,70 @@ using UnityEngine;
 
 public class PickupPoint : MonoBehaviour
 {
-    public Resource resource;
-    private GameObject displayPrefab;
+    public class Item
+    {
+        public Resource resource;
+        public GameObject displayPrefab;
+
+        public Item(Resource resource, GameObject displayPrefab)
+        {
+            this.resource = resource;
+            this.displayPrefab = displayPrefab;
+        }
+    }
+
+    public Resource startResource;
+    public List<Item> items;
 
     void Start()
     {
-        if (this.HasResource()) {
-            this.InstantiateDisplayPrefab();
-        }
-    }
-
-    private void InstantiateDisplayPrefab()
-    {
-        if (!this.HasResource()) return;
-
-        this.DestroyDisplayPrefab();
-
-        this.displayPrefab = Instantiate(this.resource.displayPrefab);
-        this.displayPrefab.transform.SetParent(transform);
-        this.displayPrefab.transform.localPosition = Vector3.zero;
-    }
-
-    private void DestroyDisplayPrefab()
-    {
-        if (this.displayPrefab)
+        if (startResource)
         {
-            GameObject.Destroy(this.displayPrefab);
+            items.Add(new Item(startResource, this.InstantiateDisplayPrefab(startResource)));
         }
+    }
+
+    private GameObject InstantiateDisplayPrefab(Resource resource)
+    {
+        GameObject prefab = Instantiate(resource.displayPrefab);
+        prefab.transform.SetParent(transform);
+        prefab.transform.localPosition = Vector3.zero;
+        return prefab;
     }
 
     public bool AddResource(Resource resource)
     {
-        if (HasResource())  return false;
+        if (!resource) return false;
 
-        this.resource = resource;
-        this.InstantiateDisplayPrefab();
+        items.Add(new Item(resource, this.InstantiateDisplayPrefab(resource)));
 
         return true;
     }
 
-    public Resource RemoveResource()
+    public Resource RemoveResource(Resource resource)
     {
-        Resource temp = this.resource;
-        this.DestroyDisplayPrefab();
-        this.resource = null;
-        return temp;
+        Item foundItem = this.items.Find(item => item.resource == resource);
+        if (foundItem == null) return null;
+
+        GameObject.Destroy(foundItem.displayPrefab);
+        this.items.Remove(foundItem);
+
+        return foundItem.resource;
     }
 
-    public bool HasResource()
+    public Resource PopResource()
     {
-        return !!this.resource;
+        if (this.items.Count == 0) return null;
+
+        Item foundItem = this.items[this.items.Count - 1];
+        GameObject.Destroy(foundItem.displayPrefab);
+        this.items.Remove(foundItem);
+
+        return foundItem.resource;
+    }
+
+    public List<Item> GetItems()
+    {
+        return this.items;
     }
 }

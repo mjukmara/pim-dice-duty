@@ -46,13 +46,24 @@ public class Player : MonoBehaviour
 			this.interact = false;
 			// Do pickup stuff
 			PickupPoint pickupPoint = other.gameObject.GetComponent<PickupPoint>();
-			Resource resource = pickupPoint.RemoveResource();
-			if (resource)
-			{
-				inventory.AddItem(resource);
+			if (pickupPoint.GetItems().Count > 0)
+            {
+				List<Resource> resources = pickupPoint.GetItems();
+				if (resource)
+				{
+					inventory.AddItem(resource);
 
-				Recipe cookedRecipe = chef.TryCookAnyRecipe(); // TODO: This should return the Recipe that was cooked
+					Recipe cookedRecipe = chef.TryCookAnyRecipe();
+				}
 			}
+			else
+			{
+				while (this.inventory.items.Count > 0) {
+					Resource resource = this.inventory.PopItem();
+					pickupPoint.AddResource(resource);
+				}
+			}
+			
 		}
 	}
 }
