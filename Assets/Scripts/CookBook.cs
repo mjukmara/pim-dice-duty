@@ -25,19 +25,8 @@ public class CookBook : ScriptableObject
 
         foreach (Recipe cookBookRecipe in cookBook.recipes)
         {
-            List<Resource> resourcesCopy = new List<Resource>(resources);
-            bool earlyExit = false;
-            foreach (Resource cookBookRecipeResource in cookBookRecipe.consumes)
+            if (Recipe.IsCompositionOf(cookBookRecipe, resources))
             {
-                Resource found = resourcesCopy.Find(resource => resource.label == cookBookRecipeResource.label);
-                if (!found)
-                {
-                    earlyExit = true;
-                    break;
-                }
-                resourcesCopy.Remove(found);
-            }
-            if (!earlyExit) {
                 possibleRecipes.Add(cookBookRecipe);
             }
         }
