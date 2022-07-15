@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Bar
   m_EditorClassIdentifier: 
   label: Bar
+  displayPrefab: {fileID: 4945526903985491427, guid: d1149716aac69e64abf0b525b6126464, type: 3}
