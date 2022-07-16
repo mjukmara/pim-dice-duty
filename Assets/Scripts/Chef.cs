@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chef : MonoBehaviour
 {
-    public CookBook cookBook;
+    public List<CookBook> cookBooks;
 
     Inventory inventory;
 
@@ -20,12 +20,22 @@ public class Chef : MonoBehaviour
     {
         List<Resource> available = new List<Resource>(this.inventory.GetItems());
         available.AddRange(resources);
-        return CookBook.FindAllPossibleRecipes(this.cookBook, available).Count > 0;
+        List<Recipe> possibleRecipes = new List<Recipe>();
+        foreach(CookBook cookBook in cookBooks)
+        {
+            possibleRecipes.AddRange(CookBook.FindAllPossibleRecipes(cookBook, available));
+        }
+        return possibleRecipes.Count > 0;
     }
 
     public Recipe TryCookAnyRecipe()
     {
-        List<Recipe> possibleRecipes = CookBook.FindAllPossibleRecipes(this.cookBook, this.inventory.GetItems());
+        List<Recipe> possibleRecipes = new List<Recipe>();
+        foreach (CookBook cookBook in cookBooks)
+        {
+            possibleRecipes.AddRange(CookBook.FindAllPossibleRecipes(cookBook, this.inventory.GetItems()));
+        }
+
         if (possibleRecipes.Count == 0)
         {
             return null;
