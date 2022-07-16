@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreSpawner : MonoBehaviour
 {
-	public ScoreSpawner instance;
+	static ScoreSpawner instance;
 	public GameObject score;
 
 	void Start()
@@ -23,7 +23,8 @@ public class ScoreSpawner : MonoBehaviour
 		if (newScore > 100) { suffix = "!"; }
 		if (newScore > 250) { suffix = "!!"; }
 		if (newScore > 600) { suffix = "!!!"; }
-		if (newScore > 1000) { suffix = "!!!"; }
+		if (newScore > 1000) { suffix = "?!"; }
+		if (newScore > 2500) { suffix = "?!?!?!"; }
 
 		text.text = addScore + " X" + Game.multiplier + suffix;
 
