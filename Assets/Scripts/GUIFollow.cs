@@ -9,5 +9,18 @@ public class GUIFollow : MonoBehaviour
 
     void Update()
     {
+		if (target == null) {
+			return;
+		}
+
+		Vector2 sp = Camera.main.WorldToScreenPoint(target.position);
+
+		this.transform.position = sp;
     }
+
+	void OnEnable() {
+		if (gameObject.activeInHierarchy) {
+			Update();
+		}
+	}
 }
