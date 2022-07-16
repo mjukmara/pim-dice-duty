@@ -7,7 +7,7 @@ public class GUIFollow : MonoBehaviour
 {
 	public Transform target;
 
-    void Update()
+    void LateUpdate()
     {
 		if (target == null) {
 			return;
@@ -18,9 +18,9 @@ public class GUIFollow : MonoBehaviour
 		this.transform.position = sp;
     }
 
-	void OnEnable() {
+	void Awake() {
 		if (gameObject.activeInHierarchy) {
-			Update();
+			LateUpdate();
 		}
 	}
 }
