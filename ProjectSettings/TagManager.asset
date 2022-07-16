@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Border
+    uniqueID: 3508029613
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
