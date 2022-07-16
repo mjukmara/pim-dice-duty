@@ -6,13 +6,12 @@ public class Player : MonoBehaviour
 {
 	public GameObject body;
 	public float speed = 1000.0f;
+	public float maxPickupDistance = 0.5f;
 
 	Rigidbody2D rb;
 	Animator bodyAnimator;
 	Inventory inventory;
 	Chef chef;
-
-	bool interact = false;
 
     void Start()
     {
@@ -34,11 +33,8 @@ public class Player : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			interact = true;
-		}
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			interact = false;
+			PickupPoint closestPickupPoint = this.FindClosestPickupPoint(this.maxPickupDistance);
+			this.InteractWithPickupPoint(closestPickupPoint);
 		}
 
 		bodyAnimator.SetBool("holding", inventory.items.Count > 0);
@@ -57,28 +53,51 @@ public class Player : MonoBehaviour
 
 	void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "PickupPoint" && interact)
-		{
-			this.interact = false;
-			// Do pickup stuff
-			PickupPoint pickupPoint = other.gameObject.GetComponent<PickupPoint>();
-			if (pickupPoint.GetItems().Count > 0)
-			{
-				while (pickupPoint.items.Count > 0)
-				{
-					Resource resource = pickupPoint.PopResource();
-					inventory.AddItem(resource);
-				}
 
-				Recipe cookedRecipe = chef.TryCookAnyRecipe();
-			}
-			else
+	}
+
+	public PickupPoint FindClosestPickupPoint(float maxDistance)
+	{
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag("PickupPoint");
+		GameObject closest = null;
+		float distance = Mathf.Infinity;
+		Vector3 position = transform.position;
+		foreach (GameObject go in gos)
+		{
+			Vector3 diff = go.transform.position - position;
+			float curDistance = diff.sqrMagnitude;
+			if (curDistance < distance && curDistance < maxDistance)
 			{
-				while (this.inventory.items.Count > 0)
-				{
-					Resource resource = this.inventory.PopItem();
-					pickupPoint.AddResource(resource);
-				}
+				closest = go;
+				distance = curDistance;
+			}
+		}
+		if (!closest) return null;
+		return closest.GetComponent<PickupPoint>();
+	}
+
+	public void InteractWithPickupPoint(PickupPoint pickupPoint)
+    {
+		if (!pickupPoint) return;
+
+		// Do pickup stuff
+		if (pickupPoint.GetItems().Count > 0)
+		{
+			while (pickupPoint.GetItems().Count > 0)
+			{
+				Resource resource = pickupPoint.PopResource();
+				inventory.AddItem(resource);
+			}
+
+			Recipe cookedRecipe = chef.TryCookAnyRecipe();
+		}
+		else
+		{
+			while (this.inventory.items.Count > 0)
+			{
+				Resource resource = this.inventory.PopItem();
+				pickupPoint.AddResource(resource);
 			}
 		}
 	}
