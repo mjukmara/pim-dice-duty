@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
 	{
 		Debug.Log("Player cooked recipe: " + recipe.label);
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
+		AudioManager.Instance.PlaySfx("Test");
 		CameraManager.instance.Shake(0.1f, 0.2f);
 	}
 }
