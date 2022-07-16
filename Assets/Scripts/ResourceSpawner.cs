@@ -9,7 +9,10 @@ public class ResourceSpawner : MonoBehaviour
     public Belt targetBelt;
 
     float timer;
-    
+
+    public delegate void OnResourceSpawned(ResourceSpawner resourceSpawner, Resource resource);
+    public static OnResourceSpawned onResourceSpawned;
+
     void Start()
     {
         timer = Time.time;    
@@ -30,6 +33,7 @@ public class ResourceSpawner : MonoBehaviour
                     if (attachPoint)
                     {
                         attachPoint.AttachResource(resource);
+                        onResourceSpawned?.Invoke(this, resource);
                     }
                 }
             }
