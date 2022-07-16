@@ -280,7 +280,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -288,6 +288,69 @@ TextureImporter:
       bones: []
       spriteID: 842a67b721e827e71938ce46b45bf7e3
       internalID: 1857629516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stuff_9
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 81
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c21fcd6b75f63065ca376793fdfae605
+      internalID: -2136432584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stuff_10
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 65
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f616a6102cfce5c46be3f36c9b16a03e
+      internalID: 1956356262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stuff_11
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 52
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea50931b49ce3ab089ba454320303e48
+      internalID: -1918322472
       vertices: []
       indices: 
       edges: []
@@ -303,7 +366,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      stuff_11: -1918322472
       stuff_2: 1112825566
+      stuff_10: 1956356262
       stuff_8: 1857629516
       stuff_0: -110637084
       stuff_6: 1025413711
@@ -312,6 +377,7 @@ TextureImporter:
       stuff_1: -1603862227
       stuff_7: 989874500
       stuff_4: -843720231
+      stuff_9: -2136432584
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
