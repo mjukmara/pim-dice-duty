@@ -12,6 +12,7 @@ public class Belt : MonoBehaviour
     public float moveInterval = 3f;
     public float moveSpeed = 2f;
     public bool pusher = true;
+    public float progress = 0f;
 
     private float moveTimer = 0f;
     private bool isMoving = false;
@@ -54,25 +55,34 @@ public class Belt : MonoBehaviour
         if (!this.isMoving)
         {
             this.isMoving = true;
-            onBeltChange?.Invoke(ChangeType.MOVE_START, this);
-            StartCoroutine(Tweener.RunTween(
-                PureTween.Tween.InOutBack,
-                moveSpeed,
-                (progress) => OnMoveProgress(progress),
-                () => OnMoveFinished()
-            ));
+            OnMoveStart();
+            
         }
+    }
+
+    public void OnMoveStart()
+    {
+        this.progress = 0f;
+        onBeltChange?.Invoke(ChangeType.MOVE_START, this);
+        StartCoroutine(Tweener.RunTween(
+            PureTween.Tween.InOutBack,
+            moveSpeed,
+            (progress) => OnMoveProgress(progress),
+            () => OnMoveFinish()
+        ));
     }
 
     public void OnMoveProgress(float progress)
     {
+        this.progress = progress;
         onBeltChange?.Invoke(ChangeType.MOVE_PROGRESS, this);
         Vector3 attachPointAtPos = transform.position + new Vector3(1f, 0f, 0f) * progress;
         attachPoint.transform.position = attachPointAtPos;
     }
 
-    public void OnMoveFinished()
+    public void OnMoveFinish()
     {
+        this.progress = 0f;
         onBeltChange?.Invoke(ChangeType.MOVE_FINISH, this);
         Resource resource = attachPoint.DetachLastResource();
 
