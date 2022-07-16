@@ -9,24 +9,19 @@ public class ResourceSpawner : MonoBehaviour
     public Belt targetBelt;
 
     float timer;
-    public static bool isSpawning = false;
+    public bool isSpawning = false;
 
     public delegate void OnResourceSpawned(ResourceSpawner resourceSpawner, Resource resource);
     public static OnResourceSpawned onResourceSpawned;
 
-    public static void SetSpawnerState(bool spawning)
-    {
-        isSpawning = spawning;
-    }
-
     void Start()
     {
-        timer = Time.time;    
+        timer = Time.time;
     }
 
     void Update()
     {
-        if (!ResourceSpawner.isSpawning) return;
+        if (!isSpawning) return;
 
         timer += Time.deltaTime;
         if (timer > spawnInterval)
