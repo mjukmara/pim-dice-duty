@@ -13,6 +13,7 @@ public class Belt : MonoBehaviour
     public float moveSpeed = 2f;
     public bool pusher = true;
     public float progress = 0f;
+    public bool receiving = false;
 
     private float moveTimer = 0f;
     private bool isMoving = false;
@@ -55,6 +56,13 @@ public class Belt : MonoBehaviour
         if (!this.isMoving)
         {
             this.isMoving = true;
+            if (nextBeltObject) {
+                Belt nextBelt = nextBeltObject.GetComponent<Belt>();
+                if (nextBelt)
+                {
+                    nextBelt.receiving = true;
+                }
+            }
             OnMoveStart();
             
         }
@@ -106,6 +114,13 @@ public class Belt : MonoBehaviour
 
         attachPoint.transform.position = transform.position;
         this.isMoving = false;
+        if (nextBeltObject) {
+            Belt nextBelt2 = nextBeltObject.GetComponent<Belt>();
+            if (nextBelt2)
+            {
+                nextBelt2.receiving = false;
+            }
+        }
     }
 
     public void TryInvokeNextBeltToMove()
@@ -130,5 +145,20 @@ public class Belt : MonoBehaviour
     public AttachPoint GetAttachPoint()
     {
         return this.attachPoint;
+    }
+
+    public bool IsMoving()
+    {
+        return isMoving;
+    }
+
+    public bool IsReceiving()
+    {
+        return receiving;
+    }
+
+    public bool IsInteractable()
+    {
+        return !IsMoving() && !IsReceiving();
     }
 }

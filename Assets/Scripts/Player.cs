@@ -99,26 +99,34 @@ public class Player : MonoBehaviour
 		// Do pickup stuff
 		if (pickupPoint.GetItems().Count > 0)
 		{
-			bool isHoldingItems = this.inventory.items.Count > 0;
-			bool canCookWithResources = chef.CanCookWithExtraResources(pickupPoint.GetResources());
+			if (pickupPoint.IsInteractable() && pickupPoint.pickup)
+			{
+				bool isHoldingItems = this.inventory.items.Count > 0;
+				bool canCookWithResources = chef.CanCookWithExtraResources(pickupPoint.GetResources());
 
-			if (!isHoldingItems || (isHoldingItems && canCookWithResources))
-            {
-				while (pickupPoint.GetItems().Count > 0)
+				if (!isHoldingItems || (isHoldingItems && canCookWithResources))
 				{
-					Resource resource = pickupPoint.PopResource();
-					inventory.AddItem(resource);
-				}
+					while (pickupPoint.GetItems().Count > 0)
+					{
+						Resource resource = pickupPoint.PickupResource();
+						if (resource)
+						{
+							inventory.AddItem(resource);
+						}
+					}
 
-				chef.TryCookAnyRecipe();
+					chef.TryCookAnyRecipe();
+				}
 			}
 		}
 		else
 		{
-			while (this.inventory.items.Count > 0)
+			if (pickupPoint.IsInteractable() && pickupPoint.dropoff)
 			{
-				Resource resource = this.inventory.PopItem();
-				pickupPoint.AddResource(resource);
+				while (this.inventory.items.Count > 0)
+				{
+					pickupPoint.DropOffResource(this.inventory.PopItem());
+				}
 			}
 		}
 	}
