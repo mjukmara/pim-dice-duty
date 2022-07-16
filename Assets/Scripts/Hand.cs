@@ -44,6 +44,7 @@ public class Hand : MonoBehaviour
         this.displayPrefab = Instantiate(this.resource.displayPrefab);
         this.displayPrefab.transform.SetParent(transform);
         this.displayPrefab.transform.localPosition = Vector3.zero;
+        this.displayPrefab.transform.localScale = Vector3.one;
     }
 
     private void DestroyDisplayPrefab()
