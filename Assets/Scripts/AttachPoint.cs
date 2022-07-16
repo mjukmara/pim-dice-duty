@@ -42,6 +42,19 @@ public class AttachPoint : MonoBehaviour
         return foundAttachment.resource;
     }
 
+    public Resource DetachFirstResource()
+    {
+        if (this.attachments.Count == 0) return null;
+
+        Attachment foundAttachment = this.attachments[0];
+        if (foundAttachment == null) return null;
+
+        Destroy(foundAttachment.prefabInstance);
+        this.attachments.RemoveAt(0);
+
+        return foundAttachment.resource;
+    }
+
     public Resource DetachLastResource()
     {
         if (this.attachments.Count == 0) return null;
