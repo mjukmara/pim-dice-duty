@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 	public GameObject craftExplosion;
 	public float speed = 1000.0f;
 	public float maxPickupDistance = 0.5f;
+	public bool alive = true;
 
 	Rigidbody2D rb;
 	Animator bodyAnimator;
@@ -34,6 +35,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+		if (!alive)
+			return;
+
 		float x = Input.GetAxisRaw("Horizontal");
 		float y = Input.GetAxisRaw("Vertical");
 
