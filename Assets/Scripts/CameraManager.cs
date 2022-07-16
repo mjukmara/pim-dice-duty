@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+	public static CameraManager instance;
+
 	public float shakeMult = 1.0f;
 
 	float shakeIntensity = 0.0f;
@@ -12,8 +14,6 @@ public class CameraManager : MonoBehaviour
 
 	GameObject cameraObject;
 	Vector3 offset;
-
-	static CameraManager instance;
 
     void Start()
     {
