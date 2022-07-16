@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2efee3f4491b5e94fa5e5b4523924e52, type: 3}
+  m_Name: BlueGreen
+  m_EditorClassIdentifier: 
+  label: Blue green recipe
+  consumes:
+  - {fileID: 11400000, guid: 897a40117d916ef419b4a87c2a0c11a1, type: 2}
+  - {fileID: 11400000, guid: 9083d1d6df151534ea6181037015b36d, type: 2}
+  produces:
+  - {fileID: 11400000, guid: 5460d86cabca09047939a33b2155d35f, type: 2}
