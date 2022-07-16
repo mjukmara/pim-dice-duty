@@ -15,11 +15,12 @@ public class Player : MonoBehaviour
 	Inventory inventory;
 	Chef chef;
 
+	public GameObject dice;
+
 	private void OnEnable()
 	{
 		Chef.onCookedRecipe += OnCookedRecipe;
 	}
-
 
 	private void onDisable()
 	{
@@ -45,6 +46,15 @@ public class Player : MonoBehaviour
 		movement.Normalize();
 
 		rb.velocity = movement * speed;
+
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			GameObject diceGoal = Instantiate(dice, transform.position, Quaternion.identity);
+
+			diceGoal.GetComponent<DiceGoalScript>().Set(new Color(Random.value, Random.value, Random.value), Random.Range(1, 6));
+
+			GameObject.Destroy(diceGoal, 5.0f);
+		}
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{

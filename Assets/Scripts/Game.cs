@@ -5,7 +5,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 	static Game instance;
-	public Animator animator;
+	Animator animator;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
 
 	public void StartGame()
 	{
-		instance.animator.ResetTrigger("Start");
-		instance.animator.SetTrigger("Start");
+		instance?.animator.ResetTrigger("Start");
+		instance?.animator.SetTrigger("Start");
 	}
 }

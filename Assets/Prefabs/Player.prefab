@@ -208,6 +208,8 @@ MonoBehaviour:
   craftExplosion: {fileID: 6209832629801428526, guid: 72972941a7414a6edb35d1af5f9db253, type: 3}
   speed: 3.6
   maxPickupDistance: 0.5
+  alive: 1
+  dice: {fileID: 5854363123822649230, guid: c0c0463e86d824f3daca08f0024c2ac5, type: 3}
 --- !u!114 &2705371969435634743
 MonoBehaviour:
   m_ObjectHideFlags: 0
