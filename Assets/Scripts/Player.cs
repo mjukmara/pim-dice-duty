@@ -43,8 +43,10 @@ public class Player : MonoBehaviour
 
 		bodyAnimator.SetBool("holding", inventory.items.Count > 0);
 
+		float mag = rb.velocity.magnitude;
+		bodyAnimator.SetFloat("speed", mag);
+
 		float speedx = Mathf.Abs(rb.velocity.x);
-		bodyAnimator.SetFloat("velocityx", speedx);
 		if (speedx < 0.1f)
 			return;
 
