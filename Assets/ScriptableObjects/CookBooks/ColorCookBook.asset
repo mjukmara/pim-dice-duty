@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b179cf7b25970c46ac902e817ba54ff, type: 3}
   m_Name: ColorCookBook
   m_EditorClassIdentifier: 
-  label: My first cook book
+  label: Color cook book
   recipes:
   - {fileID: 11400000, guid: 296654cedd1c1bd48bb9a07d511db73c, type: 2}
   - {fileID: 11400000, guid: 3e3c7fd74b8f98240a9ed1c51555debc, type: 2}

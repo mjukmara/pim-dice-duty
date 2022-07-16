@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b179cf7b25970c46ac902e817ba54ff, type: 3}
   m_Name: NumberCookBook
   m_EditorClassIdentifier: 
-  label: My first cook book
-  recipes: []
+  label: Number cook book
+  recipes:
+  - {fileID: 11400000, guid: 31f0af946131f5147baae1aad5838664, type: 2}
+  - {fileID: 11400000, guid: fec38ce731dfc7f42b18bd86e956c99a, type: 2}
+  - {fileID: 11400000, guid: 3b12944755c0e7e4ba8b3321fc5a4626, type: 2}
+  - {fileID: 11400000, guid: a2b97c80fa3f48649ba42fb965ea61e7, type: 2}
+  - {fileID: 11400000, guid: c48c5448256e1534683a42476c0b7f1c, type: 2}
+  - {fileID: 11400000, guid: 63e1728b77a49ad478fc4abc144f25ec, type: 2}
+  - {fileID: 11400000, guid: 17c8e3feb595c6d40afab1b3456a92c6, type: 2}
+  - {fileID: 11400000, guid: 9108fbcf950f2f4428decbbdaba9c8b2, type: 2}
+  - {fileID: 11400000, guid: 2bc91300090257c4fae9f63be748f3a9, type: 2}
