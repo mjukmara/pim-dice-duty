@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	public GameObject body;
+	public GameObject craftExplosion;
 	public float speed = 1000.0f;
 	public float maxPickupDistance = 0.5f;
 
@@ -121,6 +122,8 @@ public class Player : MonoBehaviour
 	void OnCookedRecipe(Recipe recipe)
 	{
 		Debug.Log("Player cooked recipe: " + recipe.label);
+		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
+		AudioManager.Instance.PlaySfx("Test");
 		CameraManager.instance.Shake(0.1f, 0.2f);
 	}
 }
