@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 		// Do pickup stuff
 		if (pickupPoint.GetItems().Count > 0)
 		{
-			while (pickupPoint.items.Count > 0)
+			while (pickupPoint.GetItems().Count > 0)
 			{
 				Resource resource = pickupPoint.PopResource();
 				inventory.AddItem(resource);

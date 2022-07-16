@@ -6,6 +6,8 @@ public class Hand : MonoBehaviour
 {
     public Resource resource;
     private GameObject displayPrefab;
+    
+    AttachPoint attachPoint;
 
     private void OnEnable()
     {
@@ -19,9 +21,10 @@ public class Hand : MonoBehaviour
 
     void Start()
     {
-        if (this.HasResource())
+        attachPoint = GetComponent<AttachPoint>();
+        if (resource)
         {
-            this.InstantiateDisplayPrefab();
+            attachPoint.AttachResource(resource);
         }
     }
 
@@ -35,48 +38,23 @@ public class Hand : MonoBehaviour
         }
     }
 
-    private void InstantiateDisplayPrefab()
+    public void AddResource(Resource resource)
     {
-        if (!this.HasResource()) return;
-
-        this.DestroyDisplayPrefab();
-
-        this.displayPrefab = Instantiate(this.resource.displayPrefab);
-        this.displayPrefab.transform.SetParent(transform);
-        this.displayPrefab.transform.localPosition = Vector3.zero;
-        this.displayPrefab.transform.localScale = Vector3.one;
-    }
-
-    private void DestroyDisplayPrefab()
-    {
-        if (this.displayPrefab)
-        {
-            GameObject.Destroy(this.displayPrefab);
-        }
-    }
-
-    public bool AddResource(Resource resource)
-    {
-        if (HasResource()) return false;
-
-        this.resource = resource;
-        this.InstantiateDisplayPrefab();
-
-        return true;
+        attachPoint.AttachResource(resource);
     }
 
     public Resource RemoveResource(Resource resource)
     {
-        if (resource != this.resource) return null;
-
-        Resource temp = this.resource;
-        this.DestroyDisplayPrefab();
-        this.resource = null;
-        return temp;
+        return attachPoint.DetachResource(resource);
     }
 
-    public bool HasResource()
+    public Resource PopResource()
     {
-        return !!this.resource;
+        return attachPoint.DetachLastResource();
+    }
+
+    public List<AttachPoint.Attachment> GetItems()
+    {
+        return attachPoint.GetAttachments();
     }
 }

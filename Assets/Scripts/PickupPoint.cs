@@ -4,70 +4,36 @@ using UnityEngine;
 
 public class PickupPoint : MonoBehaviour
 {
-    public class Item
-    {
-        public Resource resource;
-        public GameObject displayPrefab;
-
-        public Item(Resource resource, GameObject displayPrefab)
-        {
-            this.resource = resource;
-            this.displayPrefab = displayPrefab;
-        }
-    }
-
     public Resource startResource;
-    public List<Item> items = new List<Item>();
+
+    AttachPoint attachPoint;
 
     void Start()
     {
+        attachPoint = GetComponent<AttachPoint>();
         if (startResource)
         {
-            items.Add(new Item(startResource, this.InstantiateDisplayPrefab(startResource)));
+            attachPoint.AttachResource(startResource);
         }
     }
 
-    private GameObject InstantiateDisplayPrefab(Resource resource)
+    public void AddResource(Resource resource)
     {
-        GameObject prefab = Instantiate(resource.displayPrefab);
-        prefab.transform.SetParent(transform);
-        prefab.transform.localPosition = Vector3.zero;
-        return prefab;
-    }
-
-    public bool AddResource(Resource resource)
-    {
-        if (!resource) return false;
-
-        items.Add(new Item(resource, this.InstantiateDisplayPrefab(resource)));
-
-        return true;
+        attachPoint.AttachResource(resource);
     }
 
     public Resource RemoveResource(Resource resource)
     {
-        Item foundItem = this.items.Find(item => item.resource == resource);
-        if (foundItem == null) return null;
-
-        GameObject.Destroy(foundItem.displayPrefab);
-        this.items.Remove(foundItem);
-
-        return foundItem.resource;
+        return attachPoint.DetachResource(resource);
     }
 
     public Resource PopResource()
     {
-        if (this.items.Count == 0) return null;
-
-        Item foundItem = this.items[this.items.Count - 1];
-        GameObject.Destroy(foundItem.displayPrefab);
-        this.items.Remove(foundItem);
-
-        return foundItem.resource;
+        return attachPoint.DetachLastResource();
     }
 
-    public List<Item> GetItems()
+    public List<AttachPoint.Attachment> GetItems()
     {
-        return this.items;
+        return attachPoint.GetAttachments();
     }
 }
