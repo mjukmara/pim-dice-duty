@@ -38,7 +38,44 @@ public class Belt : MonoBehaviour
     {
         if (attachPoint.GetAttachments().Count == 0) return;
 
-        Debug.Log("Moving: " + gameObject);
+        TryInvokeNextBeltToMove();
+
+        if (!this.isMoving)
+        {
+            this.isMoving = true;
+            StartCoroutine(Tweener.RunTween(
+                PureTween.Tween.InOutQuad,
+                moveSpeed,
+                (progress) => OnMoveProgress(progress),
+                () => OnMoveFinished()
+            ));
+        }
+    }
+
+    public void OnMoveProgress(float progress)
+    {
+        Vector3 attachPointAtPos = transform.position + new Vector3(1f, 0f, 0f) * progress;
+        attachPoint.transform.position = attachPointAtPos;
+    }
+
+    public void OnMoveFinished()
+    {
+        Resource resource = attachPoint.DetachLastResource();
+        if (nextBeltObject)
+        {
+            Belt nextBelt = nextBeltObject.GetComponent<Belt>();
+            AttachPoint nextAttachPoint = nextBelt.GetAttachPoint();
+            if (nextAttachPoint)
+            {
+                nextAttachPoint.AttachResource(resource);
+            }
+        }
+        attachPoint.transform.position = transform.position;
+        this.isMoving = false;
+    }
+
+    public void TryInvokeNextBeltToMove()
+    {
         if (nextBeltObject)
         {
             Belt nextBelt = nextBeltObject.GetComponent<Belt>();
@@ -47,43 +84,12 @@ public class Belt : MonoBehaviour
             {
                 if (nextAttachPoint.GetAttachments().Count > 0)
                 {
-                    Debug.Log("Next belt has attachment");
                     if (nextBelt)
                     {
-                        Debug.Log("Invoking next belt to move");
                         nextBelt.Move();
                     }
                 }
             }
-        }
-
-        if (!this.isMoving)
-        {
-            this.isMoving = true;
-            StartCoroutine(Tweener.RunTween(
-                PureTween.Tween.InOutQuad,
-                moveSpeed,
-                (progress) =>
-                {
-                    Vector3 attachPointAtPos = transform.position + new Vector3(1f, 0f, 0f) * progress;
-                    attachPoint.transform.position = attachPointAtPos;
-                },
-                () =>
-                {
-                    Resource resource = attachPoint.DetachLastResource();
-                    if (nextBeltObject)
-                    {
-                        Belt nextBelt = nextBeltObject.GetComponent<Belt>();
-                        AttachPoint nextAttachPoint = nextBelt.GetAttachPoint();
-                        if (nextAttachPoint)
-                        {
-                            nextAttachPoint.AttachResource(resource);
-                        }
-                    }
-                    attachPoint.transform.position = transform.position;
-                    this.isMoving = false;
-                }
-            ));
         }
     }
 
