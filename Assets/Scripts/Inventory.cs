@@ -14,14 +14,12 @@ public class Inventory : MonoBehaviour
     public void AddItem(Resource item)
     {
         this.items.Add(item);
-        Debug.Log("Invoke inventory change: ADD");
         onInventoryChange?.Invoke(ChangeType.ADD, item);
     }
 
     public void RemoveItem(Resource item)
     {
         this.items.Remove(item);
-        Debug.Log("Invoke inventory change: REMOVE");
         onInventoryChange?.Invoke(ChangeType.REMOVE, item);
     }
 

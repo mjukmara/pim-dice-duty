@@ -17,7 +17,7 @@ public class PickupPoint : MonoBehaviour
     }
 
     public Resource startResource;
-    public List<Item> items;
+    public List<Item> items = new List<Item>();
 
     void Start()
     {
