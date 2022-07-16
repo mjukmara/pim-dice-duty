@@ -777,93 +777,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143560872}
   m_CullTransparentMesh: 1
---- !u!1 &153089553
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 153089554}
-  - component: {fileID: 153089555}
-  m_Layer: 0
-  m_Name: DiceSequence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &153089554
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153089553}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &153089555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153089553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f4d6781594835549813e656ade95e9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dices:
-  - digit: 1
-    resource: {fileID: 11400000, guid: 85872c04eef72b841931658319179271, type: 2}
-  - digit: 2
-    resource: {fileID: 11400000, guid: 08d7a30eb7393b94c94557a8347c8dc8, type: 2}
-  - digit: 3
-    resource: {fileID: 11400000, guid: 17e2e0646ab73844c840577728f99239, type: 2}
-  - digit: 4
-    resource: {fileID: 11400000, guid: 7581fdb5ac0599443a844c894ef3a68d, type: 2}
-  - digit: 5
-    resource: {fileID: 11400000, guid: ee382d900c8f1854b94517a70dfa52a1, type: 2}
-  - digit: 6
-    resource: {fileID: 11400000, guid: a0a7a1541ff9d20468398cf01d9b45c2, type: 2}
-  colors:
-  - color: {r: 0.99607843, g: 0.94509804, b: 0.015686275, a: 1}
-    resource: {fileID: 11400000, guid: 6ce60505f2f40764bacdaa32ee248b25, type: 2}
-  - color: {r: 0.98823535, g: 0.80392164, b: 0.019607844, a: 1}
-    resource: {fileID: 11400000, guid: 1f6ba3cec8b3abf45a5a6d94bad77a30, type: 2}
-  - color: {r: 0.9960785, g: 0.5647059, b: 0.011764707, a: 1}
-    resource: {fileID: 11400000, guid: e3fb7f6e19df79c4c8c6649110d47e26, type: 2}
-  - color: {r: 0.97647065, g: 0.32941177, b: 0.015686275, a: 1}
-    resource: {fileID: 11400000, guid: 5e8645ae238f5794b85c33dbe10d0441, type: 2}
-  - color: {r: 0.9960785, g: 0.015686275, b: 0.019607844, a: 1}
-    resource: {fileID: 11400000, guid: 79bee52ce18cc2e44b5e17e7af803865, type: 2}
-  - color: {r: 0.6666667, g: 0.20000002, b: 0.67058825, a: 1}
-    resource: {fileID: 11400000, guid: c9da1deb597cb324c86f66fd2f33aa2b, type: 2}
-  - color: {r: 0.48235297, g: 0.1254902, b: 0.6313726, a: 1}
-    resource: {fileID: 11400000, guid: 788cbffce7dfd1f448a1cb7e71e26767, type: 2}
-  - color: {r: 0.46274513, g: 0.26666668, b: 1, a: 1}
-    resource: {fileID: 11400000, guid: e83c60855a865314bb2545acc18ed27a, type: 2}
-  - color: {r: 0.06666667, g: 0.3803922, b: 1, a: 1}
-    resource: {fileID: 11400000, guid: 897a40117d916ef419b4a87c2a0c11a1, type: 2}
-  - color: {r: 0.10196079, g: 0.56078434, b: 0.4901961, a: 1}
-    resource: {fileID: 11400000, guid: 5460d86cabca09047939a33b2155d35f, type: 2}
-  - color: {r: 0.14901961, g: 0.7058824, b: 0.3137255, a: 1}
-    resource: {fileID: 11400000, guid: 9083d1d6df151534ea6181037015b36d, type: 2}
-  - color: {r: 0.54509807, g: 0.8862746, b: 0.2392157, a: 1}
-    resource: {fileID: 11400000, guid: 59e7382ec9d99f2429693f77608ece17, type: 2}
-  lastBeltReference: {fileID: 544462352}
-  dicePrefab: {fileID: 5854363123822649230, guid: c0c0463e86d824f3daca08f0024c2ac5, type: 3}
-  spawnSpeed: 3.5
-  diceSpacing: 1
-  animatorSpeed: 2
 --- !u!1 &155501371
 GameObject:
   m_ObjectHideFlags: 0
@@ -5355,6 +5268,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12dd92a16715366948994fb1a888a347, type: 3}
+--- !u!1001 &2827502720983001966
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962620, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827502721101962621, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: lastBeltReference
+      value: 
+      objectReference: {fileID: 544462352}
+    - target: {fileID: 2827502721101962623, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
+      propertyPath: m_Name
+      value: DiceSequence
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee175573a8938984e94445f04fd8bfdb, type: 3}
 --- !u!1001 &4104831257308125812
 PrefabInstance:
   m_ObjectHideFlags: 0
