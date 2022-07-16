@@ -46,7 +46,7 @@ public class Hand : MonoBehaviour
 
     public Resource RemoveResource(Resource resource)
     {
-		SetHoldingSortingOrder(5);
+		SetHoldingSortingOrder(3);
         return attachPoint.DetachResource(resource);
     }
 
