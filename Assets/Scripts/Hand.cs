@@ -27,7 +27,6 @@ public class Hand : MonoBehaviour
 
     void OnInventoryChange(Inventory.ChangeType changeType, Resource item)
     {
-        Debug.Log("Handle inventory change");
         switch (changeType)
         {
             case Inventory.ChangeType.ADD: AddResource(item); break;
