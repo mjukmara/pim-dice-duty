@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-	[Header("Parallax")]
-	[Slider(0, 4)]
 	public float distance = 1.0f;
 	public float velocity = 10.0f;
-
-	[Space]
 	public bool wrap = true;
 	public float wrapDistance = 15.0f;
 
@@ -17,7 +13,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
 		float initialScale = transform.localScale.x;
-		float scale = 1.0f / Mathf.sqrt(distance) * initialScale;
+		float scale = (1.0f / Mathf.Sqrt(distance)) * initialScale;
 		transform.localScale = new Vector3(scale, scale, scale);
 
 		Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
@@ -26,10 +22,10 @@ public class Parallax : MonoBehaviour
 
     void Update()
     {
-		float distance = Math.Abs(transform.position.x);
+		float distance = Mathf.Abs(transform.position.x);
 		if (distance > wrapDistance && wrap)
 		{
-			transform.position.x -= transform.position.x;
+			transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
 		}
     }
 }
