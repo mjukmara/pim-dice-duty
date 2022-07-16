@@ -4787,6 +4787,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Belts
       objectReference: {fileID: 0}
+    - target: {fileID: 6834397476617176368, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
+    - target: {fileID: 8160869522072818499, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
+    - target: {fileID: 8160869522097682692, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
+    - target: {fileID: 8160869522810518660, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
+    - target: {fileID: 8160869523548960536, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
+    - target: {fileID: 8160869523675379006, guid: a435f55940594374493c2b8d689320f9, type: 3}
+      propertyPath: beltAnimator
+      value: 
+      objectReference: {fileID: 336674383}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a435f55940594374493c2b8d689320f9, type: 3}
 --- !u!1 &1957583100
@@ -4912,6 +4936,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9141153338050427275, guid: 21021cbae3ee9a24d8772ae536bca5ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141153338050427276, guid: 21021cbae3ee9a24d8772ae536bca5ea, type: 3}
+      propertyPath: isSpawning
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9141153338050427276, guid: 21021cbae3ee9a24d8772ae536bca5ea, type: 3}

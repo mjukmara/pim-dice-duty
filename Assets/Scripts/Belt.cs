@@ -15,6 +15,10 @@ public class Belt : MonoBehaviour
     public float progress = 0f;
     public bool receiving = false;
 
+	public float beltSpeedMult = 1.0f;
+	public Animator beltAnimator;
+	float lastProgress = 0.0f;
+
     private float moveTimer = 0f;
     private bool isMoving = false;
 
@@ -64,13 +68,16 @@ public class Belt : MonoBehaviour
                 }
             }
             OnMoveStart();
-            
         }
     }
 
     public void OnMoveStart()
     {
+		this.lastProgress = 0.0f;
         this.progress = 0f;
+		if (beltAnimator != null)
+			beltAnimator.SetFloat("SpeedMult", 0.0f);
+
         onBeltChange?.Invoke(ChangeType.MOVE_START, this);
         StartCoroutine(Tweener.RunTween(
             PureTween.Tween.InOutBack,
@@ -82,15 +89,28 @@ public class Belt : MonoBehaviour
 
     public void OnMoveProgress(float progress)
     {
+		this.lastProgress = this.progress;
         this.progress = progress;
         onBeltChange?.Invoke(ChangeType.MOVE_PROGRESS, this);
         Vector3 attachPointAtPos = transform.position + new Vector3(1f, 0f, 0f) * progress;
         attachPoint.transform.position = attachPointAtPos;
+
+		if (beltAnimator != null)
+		{
+			float delta = progress - lastProgress;
+			beltAnimator.SetFloat("SpeedMult", (delta / Time.deltaTime));
+		}
     }
 
     public void OnMoveFinish()
     {
-        this.progress = 0f;
+		if (beltAnimator != null)
+		{
+			beltAnimator.SetFloat("SpeedMult", 0.0f);
+		}
+
+        this.progress = 0.0f;
+		this.lastProgress = 0.0f;
         onBeltChange?.Invoke(ChangeType.MOVE_FINISH, this);
         Resource resource = attachPoint.DetachLastResource();
 
