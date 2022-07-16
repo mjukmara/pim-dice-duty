@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	public GameObject body;
 	public float speed = 1000.0f;
 
 	Rigidbody2D rb;
+	Animator bodyAnimator;
 	Inventory inventory;
 	Chef chef;
 
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		inventory = gameObject.GetComponent<Inventory>();
 		chef = gameObject.GetComponent<Chef>();
+		bodyAnimator = body.GetComponent<Animator>();
 	}
 
     void Update()
@@ -37,6 +40,17 @@ public class Player : MonoBehaviour
 		{
 			interact = false;
 		}
+
+		bodyAnimator.SetBool("holding", inventory.items.Count > 0);
+
+		float speedx = Mathf.Abs(rb.velocity.x);
+		bodyAnimator.SetFloat("velocityx", speedx);
+		if (speedx < 0.1f)
+			return;
+
+		Vector3 bodyScale = body.transform.localScale;
+		int scalex = rb.velocity.x > 0 ? 1 : -1;
+		body.gameObject.transform.localScale = new Vector3(scalex, bodyScale.y, bodyScale.z);
 	}
 
 	void OnTriggerStay2D(Collider2D other)
@@ -48,10 +62,10 @@ public class Player : MonoBehaviour
 			PickupPoint pickupPoint = other.gameObject.GetComponent<PickupPoint>();
 			if (pickupPoint.GetItems().Count > 0)
             {
-				List<Resource> resources = pickupPoint.GetItems();
-				if (resource)
+				/* List<Resource> resources = pickupPoint.GetItems(); */
+				/* if (resource) */
 				{
-					inventory.AddItem(resource);
+					/* inventory.AddItem(resource); */
 
 					Recipe cookedRecipe = chef.TryCookAnyRecipe();
 				}
@@ -63,7 +77,6 @@ public class Player : MonoBehaviour
 					pickupPoint.AddResource(resource);
 				}
 			}
-			
 		}
 	}
 }
