@@ -41,6 +41,11 @@ public class Game : MonoBehaviour
 		SceneManager.LoadScene("Win");
 	}
 
+	public static void Reset()
+	{
+
+	}
+
 	public void Close()
 	{
 		Application.Quit();
