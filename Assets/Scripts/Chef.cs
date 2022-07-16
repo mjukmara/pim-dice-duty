@@ -8,6 +8,9 @@ public class Chef : MonoBehaviour
 
     Inventory inventory;
 
+    public delegate void OnCookedRecipe(Recipe recipe);
+    public static OnCookedRecipe onCookedRecipe;
+
     public void Start()
     {
         this.inventory = gameObject.GetComponent<Inventory>();
@@ -29,7 +32,6 @@ public class Chef : MonoBehaviour
         }
 
         Recipe recipe = possibleRecipes[Random.Range(0, possibleRecipes.Count)];
-        Debug.Log("Making recipe: " + recipe.label);
 
         foreach (Resource resource in recipe.consumes)
         {
@@ -40,6 +42,8 @@ public class Chef : MonoBehaviour
         {
             this.inventory.AddItem(resource);
         }
+
+        onCookedRecipe?.Invoke(recipe);
 
         return recipe;
     }

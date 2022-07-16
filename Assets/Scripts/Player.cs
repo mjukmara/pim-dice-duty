@@ -13,7 +13,17 @@ public class Player : MonoBehaviour
 	Inventory inventory;
 	Chef chef;
 
-    void Start()
+	private void OnEnable()
+	{
+		Chef.onCookedRecipe += OnCookedRecipe;
+	}
+
+
+	private void onDisable()
+	{
+		Chef.onCookedRecipe -= OnCookedRecipe;
+	}
+	void Start()
     {
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		inventory = gameObject.GetComponent<Inventory>();
@@ -95,11 +105,7 @@ public class Player : MonoBehaviour
 					inventory.AddItem(resource);
 				}
 
-				Recipe cookedRecipe = chef.TryCookAnyRecipe();
-				if (cookedRecipe)
-				{
-					CameraManager.instance.Shake(0.1f, 0.2f);
-				}
+				chef.TryCookAnyRecipe();
 			}
 		}
 		else
@@ -110,5 +116,11 @@ public class Player : MonoBehaviour
 				pickupPoint.AddResource(resource);
 			}
 		}
+	}
+
+	void OnCookedRecipe(Recipe recipe)
+	{
+		Debug.Log("Player cooked recipe: " + recipe.label);
+		CameraManager.instance.Shake(0.1f, 0.2f);
 	}
 }
