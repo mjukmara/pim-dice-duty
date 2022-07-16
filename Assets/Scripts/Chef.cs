@@ -41,6 +41,8 @@ public class Chef : MonoBehaviour
             this.inventory.AddItem(resource);
         }
 
+		CameraManager.instance.Shake(0.1f, 0.2f);
+
         return recipe;
     }
 }
