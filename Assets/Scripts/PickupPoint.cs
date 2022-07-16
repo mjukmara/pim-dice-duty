@@ -36,4 +36,9 @@ public class PickupPoint : MonoBehaviour
     {
         return attachPoint.GetAttachments();
     }
+
+    public List<Resource> GetResources()
+    {
+        return attachPoint.GetAttachmentsResources();
+    }
 }

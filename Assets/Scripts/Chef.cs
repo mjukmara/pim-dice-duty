@@ -13,6 +13,13 @@ public class Chef : MonoBehaviour
         this.inventory = gameObject.GetComponent<Inventory>();
     }
 
+    public bool CanCookWithExtraResources(List<Resource> resources)
+    {
+        List<Resource> available = new List<Resource>(this.inventory.GetItems());
+        available.AddRange(resources);
+        return CookBook.FindAllPossibleRecipes(this.cookBook, available).Count > 0;
+    }
+
     public Recipe TryCookAnyRecipe()
     {
         List<Recipe> possibleRecipes = CookBook.FindAllPossibleRecipes(this.cookBook, this.inventory.GetItems());

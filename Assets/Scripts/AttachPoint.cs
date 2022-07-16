@@ -59,4 +59,14 @@ public class AttachPoint : MonoBehaviour
     {
         return this.attachments;
     }
+
+    public List<Resource> GetAttachmentsResources()
+    {
+        List<Resource> resources = new List<Resource>();
+        foreach(Attachment attachment in this.attachments)
+        {
+            resources.Add(attachment.resource);
+        }
+        return resources;
+    }
 }

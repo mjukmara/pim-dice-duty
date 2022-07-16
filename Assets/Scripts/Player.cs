@@ -84,16 +84,22 @@ public class Player : MonoBehaviour
 		// Do pickup stuff
 		if (pickupPoint.GetItems().Count > 0)
 		{
-			while (pickupPoint.GetItems().Count > 0)
-			{
-				Resource resource = pickupPoint.PopResource();
-				inventory.AddItem(resource);
-			}
+			bool isHoldingItems = this.inventory.items.Count > 0;
+			bool canCookWithResources = chef.CanCookWithExtraResources(pickupPoint.GetResources());
 
-			Recipe cookedRecipe = chef.TryCookAnyRecipe();
-			if (cookedRecipe)
-			{
-				CameraManager.instance.Shake(0.1f, 0.2f);
+			if (!isHoldingItems || (isHoldingItems && canCookWithResources))
+            {
+				while (pickupPoint.GetItems().Count > 0)
+				{
+					Resource resource = pickupPoint.PopResource();
+					inventory.AddItem(resource);
+				}
+
+				Recipe cookedRecipe = chef.TryCookAnyRecipe();
+				if (cookedRecipe)
+				{
+					CameraManager.instance.Shake(0.1f, 0.2f);
+				}
 			}
 		}
 		else
