@@ -15,18 +15,18 @@ public class ScoreSpawner : MonoBehaviour
 	void Spawn(int addScore, Vector3 position)
 	{
 		GameObject scoreInstance = Instantiate(score, position, Quaternion.identity);
-		TMPro.TextMeshProUGUI text = scoreInstance.GetComponent<TMPro.TextMeshProUGUI>();
-		string suffix = "";
 
 		float newScore = addScore * Game.multiplier;
 
+		string suffix = "";
 		if (newScore > 100) { suffix = "!"; }
 		if (newScore > 250) { suffix = "!!"; }
 		if (newScore > 600) { suffix = "!!!"; }
 		if (newScore > 1000) { suffix = "?!"; }
 		if (newScore > 2500) { suffix = "?!?!?!"; }
 
-		text.text = addScore + " X" + Game.multiplier + suffix;
+		string text = addScore + " X" + Game.multiplier + suffix;
+		scoreInstance.GetComponent<Score>().Set(text);
 
 		Game.AddScore(addScore * Game.multiplier);
 	}
