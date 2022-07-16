@@ -41,12 +41,28 @@ public class Hand : MonoBehaviour
     public void AddResource(Resource resource)
     {
         attachPoint.AttachResource(resource);
+		SetHoldingSortingOrder(6);
     }
 
     public Resource RemoveResource(Resource resource)
     {
+		SetHoldingSortingOrder(5);
         return attachPoint.DetachResource(resource);
     }
+
+	GameObject GetResourceGameObject()
+	{
+		return gameObject.transform.GetChild(0)?.gameObject;
+	}
+
+	void SetHoldingSortingOrder(int sortingOrder)
+	{
+		SpriteRenderer sprite = GetResourceGameObject()?.GetComponent<SpriteRenderer>();
+		if (sprite)
+		{
+			sprite.sortingOrder = sortingOrder;
+		}
+	}
 
     public Resource PopResource()
     {
