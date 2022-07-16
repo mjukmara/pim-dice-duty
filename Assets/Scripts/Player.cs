@@ -91,6 +91,10 @@ public class Player : MonoBehaviour
 			}
 
 			Recipe cookedRecipe = chef.TryCookAnyRecipe();
+			if (cookedRecipe)
+			{
+				CameraManager.instance.Shake(0.1f, 0.2f);
+			}
 		}
 		else
 		{
