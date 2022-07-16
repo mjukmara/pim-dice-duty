@@ -61,18 +61,19 @@ public class Player : MonoBehaviour
 			// Do pickup stuff
 			PickupPoint pickupPoint = other.gameObject.GetComponent<PickupPoint>();
 			if (pickupPoint.GetItems().Count > 0)
-            {
-				/* List<Resource> resources = pickupPoint.GetItems(); */
-				/* if (resource) */
+			{
+				while (pickupPoint.items.Count > 0)
 				{
-					/* inventory.AddItem(resource); */
-
-					Recipe cookedRecipe = chef.TryCookAnyRecipe();
+					Resource resource = pickupPoint.PopResource();
+					inventory.AddItem(resource);
 				}
+
+				Recipe cookedRecipe = chef.TryCookAnyRecipe();
 			}
 			else
 			{
-				while (this.inventory.items.Count > 0) {
+				while (this.inventory.items.Count > 0)
+				{
 					Resource resource = this.inventory.PopItem();
 					pickupPoint.AddResource(resource);
 				}
