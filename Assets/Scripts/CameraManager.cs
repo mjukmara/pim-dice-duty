@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     {
 		Time.timeScale = 1.0f;
 		cameraObject = gameObject.transform.GetChild(0).gameObject;
-		offset = cameraObject.transform.position;
+		offset = cameraObject.transform.localPosition;
 
 		instance = this;
     }
@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
 			shakeOffset.y = Random.value * shakeIntensity;
 		}
 
-		cameraObject.transform.position = offset + shakeOffset * shakeMult;
+		cameraObject.transform.localPosition = offset + shakeOffset * shakeMult;
     }
 
 	public void Shake(float time, float intensity)
