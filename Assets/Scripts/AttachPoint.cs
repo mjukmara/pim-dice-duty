@@ -25,6 +25,7 @@ public class AttachPoint : MonoBehaviour
         GameObject prefabInstance = Instantiate(resource.displayPrefab);
         prefabInstance.transform.SetParent(transform);
         prefabInstance.transform.localPosition = Vector3.zero;
+        prefabInstance.transform.localScale = Vector3.one;
         attachments.Add(new Attachment(resource, prefabInstance));
     }
 
