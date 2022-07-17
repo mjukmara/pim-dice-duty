@@ -30,7 +30,7 @@ public class ScoreSpawner : MonoBehaviour
 		if (newScore >= 2500) { suffix = "?!?!?!"; }
 
 		string text = addScore + " X" + Game.multiplier + suffix;
-		if (!raw)
+		if (raw)
         {
 			text = addScore + suffix;
 		}
