@@ -95,12 +95,16 @@ public class DiceSequence : MonoBehaviour
                 ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
 
                 DestroyFirstDie();
+            } else
+            {
+                ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position);
             }
         }
 
         if (diceInstances.Count == 0)
         {
             StartCoroutine(RollDice(3));
+            ScoreSpawner.SpawnScore(1250, transform.position);
         }
     }
 
