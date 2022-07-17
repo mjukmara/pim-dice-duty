@@ -78,7 +78,7 @@ MonoBehaviour:
   - soundName: FailCraft
     clip: {fileID: 8300000, guid: 6f29e97a9d53ef366848bbda1216c70b, type: 3}
   - soundName: TurnIn
-    clip: {fileID: 8300000, guid: bdb12ad0f3ad8c179beb60c717b2b95c, type: 3}
+    clip: {fileID: 8300000, guid: 23c5e169e4c398837b49e2836ddc1217, type: 3}
   - soundName: PlaceOnGround
     clip: {fileID: 8300000, guid: bd535fd71efedf290a625f3d5dfe7d6b, type: 3}
   - soundName: Win
@@ -88,13 +88,13 @@ MonoBehaviour:
   - soundName: ClearLevel
     clip: {fileID: 8300000, guid: a54b06e14de3af9c281fc5704f52426a, type: 3}
   - soundName: Spawn
-    clip: {fileID: 8300000, guid: dab9084c4fbe66990a806e03cb8f3865, type: 3}
+    clip: {fileID: 8300000, guid: e9272673dc0f6039e99147c02e12f0be, type: 3}
   - soundName: Place
-    clip: {fileID: 8300000, guid: f0238112a1303a541a1d0afa57d58e42, type: 3}
+    clip: {fileID: 8300000, guid: 6c11cc03bfc972895ae3a1e479d10776, type: 3}
   - soundName: Success
     clip: {fileID: 8300000, guid: 23c5e169e4c398837b49e2836ddc1217, type: 3}
   - soundName: Pickup
-    clip: {fileID: 8300000, guid: f0238112a1303a541a1d0afa57d58e42, type: 3}
+    clip: {fileID: 8300000, guid: a95d91abce8a40d808a593c18d9ad044, type: 3}
 --- !u!82 &1817796589534121865
 AudioSource:
   m_ObjectHideFlags: 0
