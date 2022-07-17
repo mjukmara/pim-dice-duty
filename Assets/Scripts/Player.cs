@@ -139,6 +139,10 @@ public class Player : MonoBehaviour
 
 						// chef.TryCookWith(this.inventory.items[0], this.inventory.items[1]);
 					}
+					else
+					{
+						AudioManager.Instance.PlaySfx("FailCraft");
+					}
 				}
 			}
 		}
@@ -152,6 +156,10 @@ public class Player : MonoBehaviour
 					{
 						pickupPoint.DropOffItem(this.inventory.PopItem());
 					}
+				}
+				else
+				{
+					AudioManager.Instance.PlaySfx("FailCraft");
 				}
 			}
 		}
@@ -186,7 +194,7 @@ public class Player : MonoBehaviour
 		}
 
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
-		AudioManager.Instance.PlaySfx("Test");
+		AudioManager.Instance.PlaySfx("Craft1");
 		CameraManager.instance.Shake(0.1f, 0.2f);
 		ScoreSpawner.SpawnScore(score, body.transform.GetChild(0).position);
 	}

@@ -7,6 +7,16 @@ public class DiceGoalScript : MonoBehaviour
 	public List<Sprite> diceSprites;
 	public List<SpriteRenderer> diceRenderers;
 
+	public void Awake()
+	{
+		AudioManager.Instance.PlaySfx("Select2");
+	}
+
+	public void OnLand()
+	{
+		AudioManager.Instance.PlaySfx("DiceSpawn");
+	}
+
 	public void Set(Color diceColor, int diceValue)
 	{
 		for (int i = 0; i < diceRenderers.Count; i++)

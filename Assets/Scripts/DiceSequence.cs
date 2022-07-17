@@ -62,7 +62,7 @@ public class DiceSequence : MonoBehaviour
             if (item.type == Item.ItemType.DICE && firstDice.number == item.number && firstDice.color == item.color)
             {
                 // GameObject explosion = Instantiate(successEffect, body.transform.GetChild(0).position, Quaternion.identity);
-                AudioManager.Instance.PlaySfx("Test"); // TODO: Change sound
+                AudioManager.Instance.PlaySfx("TurnIn");
                 CameraManager.instance.Shake(0.1f, 0.2f);
 
                 int score = 0;
@@ -106,6 +106,7 @@ public class DiceSequence : MonoBehaviour
             Game.level += 1;
             StartCoroutine(RollDice(3));
             ScoreSpawner.SpawnScore(1250, transform.position);
+			AudioManager.Instance.PlaySfx("ClearLevel");
         }
     }
 
