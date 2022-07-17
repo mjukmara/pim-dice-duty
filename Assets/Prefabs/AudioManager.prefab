@@ -79,6 +79,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6f29e97a9d53ef366848bbda1216c70b, type: 3}
   - soundName: TurnIn
     clip: {fileID: 8300000, guid: bdb12ad0f3ad8c179beb60c717b2b95c, type: 3}
+  - soundName: PlaceOnGround
+    clip: {fileID: 8300000, guid: bd535fd71efedf290a625f3d5dfe7d6b, type: 3}
+  - soundName: Win
+    clip: {fileID: 8300000, guid: 93f4852647627af1683cd1567312dbc6, type: 3}
+  - soundName: DiceSpawn
+    clip: {fileID: 8300000, guid: 30b9d0f66b282fb7c82fddeaf9c632e7, type: 3}
+  - soundName: ClearLevel
+    clip: {fileID: 8300000, guid: a54b06e14de3af9c281fc5704f52426a, type: 3}
 --- !u!82 &1817796589534121865
 AudioSource:
   m_ObjectHideFlags: 0

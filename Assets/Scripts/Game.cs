@@ -61,6 +61,8 @@ public class Game : MonoBehaviour
 	IEnumerator WinSequence()
 	{
 		Instantiate(celebration, Vector3.zero, Quaternion.identity);
+		AudioManager.Instance.PlaySfx("Win");
+
 		yield return new WaitForSeconds(1);
 
 		animator.ResetTrigger("Win");
