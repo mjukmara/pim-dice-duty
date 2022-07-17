@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public Resource resource;
+    public Item item;
     private GameObject displayPrefab;
     
     AttachPoint attachPoint;
@@ -22,54 +22,60 @@ public class Hand : MonoBehaviour
     void Start()
     {
         attachPoint = GetComponent<AttachPoint>();
-        if (resource)
+        if (item)
         {
-            attachPoint.AttachResource(resource);
+            attachPoint.Attach(item);
         }
     }
 
-    void OnInventoryChange(Inventory.ChangeType changeType, Resource item)
+    void OnInventoryChange(Inventory.ChangeType changeType, Item item)
     {
         switch (changeType)
         {
-            case Inventory.ChangeType.ADD: AddResource(item); break;
-            case Inventory.ChangeType.REMOVE: RemoveResource(item); break;
+            case Inventory.ChangeType.ADD: AddItem(item); break;
+            case Inventory.ChangeType.REMOVE: RemoveItem(item); break;
             default: break;
         }
     }
 
-    public void AddResource(Resource resource)
+    public void AddItem(Item item)
     {
-        attachPoint.AttachResource(resource);
+        this.item = item;
+        attachPoint.Attach(item);
 		SetHoldingSortingOrder(6);
     }
 
-    public Resource RemoveResource(Resource resource)
+    public Item RemoveItem(Item item)
     {
-		SetHoldingSortingOrder(3);
-        return attachPoint.DetachResource(resource);
+        SetHoldingSortingOrder(3);
+        this.item = null;
+        return attachPoint.Detach(item);
     }
 
-	GameObject GetResourceGameObject()
+	GameObject GetItemGameObject()
 	{
-		return gameObject.transform.GetChild(0)?.gameObject;
+		return item ? item.gameObject : null;
 	}
 
 	void SetHoldingSortingOrder(int sortingOrder)
 	{
-		SpriteRenderer sprite = GetResourceGameObject()?.GetComponent<SpriteRenderer>();
-		if (sprite)
-		{
-			sprite.sortingOrder = sortingOrder;
-		}
+        if (item)
+        {
+            SpriteRenderer sprite = GetItemGameObject()?.GetComponent<SpriteRenderer>();
+            if (sprite)
+            {
+                sprite.sortingOrder = sortingOrder;
+            }
+        }
 	}
 
-    public Resource PopResource()
+    public Item PopItem()
     {
-        return attachPoint.DetachLastResource();
+        this.item = null;
+        return attachPoint.DetachLast();
     }
 
-    public List<AttachPoint.Attachment> GetItems()
+    public List<Item> GetItems()
     {
         return attachPoint.GetAttachments();
     }

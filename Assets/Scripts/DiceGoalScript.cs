@@ -15,6 +15,6 @@ public class DiceGoalScript : MonoBehaviour
 			diceRenderers[i].sprite = diceSprites[i];
 
 		}
-		diceRenderers[0].sprite = diceSprites[diceValue - 1];
+		diceRenderers[0].sprite = diceSprites[diceValue];
 	}
 }

@@ -19,12 +19,12 @@ public class Player : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Chef.onCookedRecipe += OnCookedRecipe;
+		Chef.onCookedItem += OnCookedItem;
 	}
 
 	private void onDisable()
 	{
-		Chef.onCookedRecipe -= OnCookedRecipe;
+		Chef.onCookedItem -= OnCookedItem;
 	}
 	void Start()
     {
@@ -103,20 +103,38 @@ public class Player : MonoBehaviour
 			if (pickupPoint.IsInteractable() && pickupPoint.pickup)
 			{
 				bool isHoldingItems = this.inventory.items.Count > 0;
-				bool canCookWithResources = chef.CanCookWithExtraResources(pickupPoint.GetResources());
 
-				if (!isHoldingItems || (isHoldingItems && canCookWithResources))
+				if (!isHoldingItems)
 				{
-					while (pickupPoint.GetItems().Count > 0)
-					{
-						Resource resource = pickupPoint.PickupResource();
-						if (resource)
-						{
-							inventory.AddItem(resource);
-						}
-					}
+					Item item = pickupPoint.PickupItem();
+					inventory.AddItem(item);
+				}
+				else if (isHoldingItems)
+				{
+					Item item1 = this.inventory.items[0];
+					Item item2 = pickupPoint.GetItems()[0];
 
-					chef.TryCookAnyRecipe();
+					bool canCookWithResources = chef.CanCookWithItems(item1, item2);
+					if (canCookWithResources) { 
+						while (pickupPoint.GetItems().Count > 0)
+						{
+
+							pickupPoint.PickupItem();
+							GameObject newItemObject = chef.TryCookWith(item1, item2);
+							if (item1.gameObject)
+							{
+								Destroy(item1.gameObject);
+							}
+							if (item1.gameObject)
+							{
+								Destroy(item2.gameObject);
+							}
+							Item newItem = newItemObject.GetComponent<Item>();
+							this.inventory.AddItem(newItem);
+						}
+
+						// chef.TryCookWith(this.inventory.items[0], this.inventory.items[1]);
+					}
 				}
 			}
 		}
@@ -126,15 +144,14 @@ public class Player : MonoBehaviour
 			{
 				while (this.inventory.items.Count > 0)
 				{
-					pickupPoint.DropOffResource(this.inventory.PopItem());
+					pickupPoint.DropOffItem(this.inventory.PopItem());
 				}
 			}
 		}
 	}
 
-	void OnCookedRecipe(Recipe recipe)
+	void OnCookedItem(Item item)
 	{
-		Debug.Log("Player cooked recipe: " + recipe.label);
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
 		AudioManager.Instance.PlaySfx("Test");
 		CameraManager.instance.Shake(0.1f, 0.2f);

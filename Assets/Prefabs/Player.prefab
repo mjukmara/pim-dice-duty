@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ef26ea87503004ea7cde3d40317d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 5191274179464385979, guid: a896a422b23f7774586279c165df698a, type: 3}
   cookBooks:
   - {fileID: 11400000, guid: 46b042a21fdbe8f4ba548f4aa00a64e6, type: 2}
   - {fileID: 11400000, guid: c020f77541ef114478ce9ff4ae9b0df8, type: 2}

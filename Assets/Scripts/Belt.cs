@@ -6,7 +6,6 @@ public class Belt : MonoBehaviour
 {
     public enum ChangeType { MOVE_START, MOVE_PROGRESS, MOVE_FINISH };
 
-    public Resource initialResource;
     public AttachPoint attachPoint;
     public GameObject nextBeltObject;
     public float moveInterval = 3f;
@@ -25,18 +24,15 @@ public class Belt : MonoBehaviour
     public delegate void OnBeltChange(ChangeType changeType, Belt belt);
     public static OnBeltChange onBeltChange;
 
-    public delegate void OnBeltPassResource(Belt belt, Belt nextBelt, Resource resource);
-    public static OnBeltPassResource onBeltPassResource;
+    public delegate void OnBeltPassItem(Belt belt, Belt nextBelt, Item item);
+    public static OnBeltPassItem onBeltPassItem;
 
-    public delegate void OnBeltDestroyResource(Belt belt, Resource resource);
-    public static OnBeltDestroyResource onBeltDestroyResource;
+    public delegate void OnBeltDestroyItem(Belt belt, Item item);
+    public static OnBeltDestroyItem onBeltDestroyItem;
 
     void Start()
     {
-        if (initialResource)
-        {
-            attachPoint.AttachResource(initialResource);
-        }
+
     }
 
     void Update()
@@ -112,24 +108,25 @@ public class Belt : MonoBehaviour
         this.progress = 0.0f;
 		this.lastProgress = 0.0f;
         onBeltChange?.Invoke(ChangeType.MOVE_FINISH, this);
-        Resource resource = attachPoint.DetachLastResource();
+        Item item = attachPoint.DetachLast();
 
-        bool passedOnResourceToNextBelt = false;
+        bool passedOnItemToNextBelt = false;
         if (nextBeltObject)
         {
             Belt nextBelt = nextBeltObject.GetComponent<Belt>();
             AttachPoint nextAttachPoint = nextBelt.GetAttachPoint();
             if (nextAttachPoint)
             {
-                nextAttachPoint.AttachResource(resource);
-                passedOnResourceToNextBelt = true;
-                onBeltPassResource?.Invoke(this, nextBelt, resource);
+                nextAttachPoint.Attach(item);
+                passedOnItemToNextBelt = true;
+                onBeltPassItem?.Invoke(this, nextBelt, item);
             }
         }
 
-        if (!passedOnResourceToNextBelt)
+        if (!passedOnItemToNextBelt)
         {
-            onBeltDestroyResource?.Invoke(this, resource);
+            onBeltDestroyItem?.Invoke(this, item);
+            Destroy(item.gameObject);
         }
 
         attachPoint.transform.position = transform.position;

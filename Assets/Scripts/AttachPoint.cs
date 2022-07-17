@@ -4,82 +4,58 @@ using UnityEngine;
 
 public class AttachPoint : MonoBehaviour
 {
-    public List<Attachment> attachments = new List<Attachment>();
+    public List<Item> attachments = new List<Item>();
 
-    public class Attachment
+
+    public void Attach(Item item)
     {
-        public Resource resource;
-        public GameObject prefabInstance;
+        if (!item) return;
 
-        public Attachment(Resource resource, GameObject prefabInstance)
-        {
-            this.resource = resource;
-            this.prefabInstance = prefabInstance;
-        }
+        item.transform.SetParent(transform);
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localScale = Vector3.one;
+        item.transform.localRotation = Quaternion.identity;
+        attachments.Add(item);
     }
 
-    public void AttachResource(Resource resource)
+    public Item Detach(Item item)
     {
-        if (!resource) return;
+        if (!item) return null;
 
-        GameObject prefabInstance = Instantiate(resource.displayPrefab);
-        prefabInstance.transform.SetParent(transform);
-        prefabInstance.transform.localPosition = Vector3.zero;
-        prefabInstance.transform.localScale = Vector3.one;
-        attachments.Add(new Attachment(resource, prefabInstance));
+        Item foundItem = this.attachments.Find(it => it == item);
+        if (foundItem == null) return null;
+
+        this.attachments.Remove(foundItem);
+
+        return foundItem;
     }
 
-    public Resource DetachResource(Resource resource)
-    {
-        if (!resource) return null;
-
-        Attachment foundAttachment = this.attachments.Find(attachment => attachment.resource == resource);
-        if (foundAttachment == null) return null;
-
-        Destroy(foundAttachment.prefabInstance);
-        this.attachments.Remove(foundAttachment);
-
-        return foundAttachment.resource;
-    }
-
-    public Resource DetachFirstResource()
+    public Item DetachFirst()
     {
         if (this.attachments.Count == 0) return null;
 
-        Attachment foundAttachment = this.attachments[0];
-        if (foundAttachment == null) return null;
+        Item foundItem = this.attachments[0];
+        if (foundItem == null) return null;
 
-        Destroy(foundAttachment.prefabInstance);
         this.attachments.RemoveAt(0);
 
-        return foundAttachment.resource;
+        return foundItem;
     }
 
-    public Resource DetachLastResource()
+    public Item DetachLast()
     {
         if (this.attachments.Count == 0) return null;
 
-        Attachment foundAttachment = this.attachments[this.attachments.Count - 1];
-        if (foundAttachment == null) return null;
+        Item foundItem = this.attachments[this.attachments.Count - 1];
+        if (foundItem == null) return null;
 
-        Destroy(foundAttachment.prefabInstance);
-        this.attachments.Remove(foundAttachment);
+        this.attachments.Remove(foundItem);
 
-        return foundAttachment.resource;
+        return foundItem;
     }
 
-    public List<Attachment> GetAttachments()
+    public List<Item> GetAttachments()
     {
         return this.attachments;
-    }
-
-    public List<Resource> GetAttachmentsResources()
-    {
-        List<Resource> resources = new List<Resource>();
-        foreach(Attachment attachment in this.attachments)
-        {
-            resources.Add(attachment.resource);
-        }
-        return resources;
     }
 }
