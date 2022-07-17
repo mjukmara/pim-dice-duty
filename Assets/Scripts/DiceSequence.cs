@@ -35,6 +35,8 @@ public class DiceSequence : MonoBehaviour
     public float diceSpacing = 1f;
     public float animatorSpeed = 2f;
 
+    public GameObject beltExitEmpty;
+
     List<Dice> diceInstances = new List<Dice>();
 
     private void OnEnable()
@@ -59,6 +61,39 @@ public class DiceSequence : MonoBehaviour
             Dice firstDice = diceInstances[0];
             if (item.type == Item.ItemType.DICE && firstDice.number == item.number && firstDice.color == item.color)
             {
+                // GameObject explosion = Instantiate(successEffect, body.transform.GetChild(0).position, Quaternion.identity);
+                AudioManager.Instance.PlaySfx("Test"); // TODO: Change sound
+                CameraManager.instance.Shake(0.1f, 0.2f);
+
+                int score = 0;
+                switch (item.number)
+                {
+                    case Item.ItemNumber.ONE: score = 200; break;
+                    case Item.ItemNumber.TWO: score = 150; break;
+                    case Item.ItemNumber.THREE: score = 150; break;
+                    case Item.ItemNumber.FOUR: score = 100; break;
+                    case Item.ItemNumber.FIVE: score = 100; break;
+                    case Item.ItemNumber.SIX: score = 50; break;
+                }
+
+                switch (item.color)
+                {
+                    case Item.ItemColor.WHITE:
+                    case Item.ItemColor.YELLOW:
+                    case Item.ItemColor.RED:
+                    case Item.ItemColor.BLUE:
+                        score *= 1;
+                        break;
+                    case Item.ItemColor.ORANGE:
+                    case Item.ItemColor.VIOLET:
+                    case Item.ItemColor.GREEN:
+                        score *= 2;
+                        break;
+                }
+
+
+                ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
+
                 DestroyFirstDie();
             }
         }
