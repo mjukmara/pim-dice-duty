@@ -17,9 +17,20 @@ public class ResourceSpawner : MonoBehaviour
     public delegate void OnItemSpawned(ResourceSpawner resourceSpawner, Item item);
     public static OnItemSpawned onItemSpawned;
 
+    [System.Serializable]
+    public class SetItem
+    {
+        public Item.ItemType type;
+        public Item.ItemNumber number;
+        public Item.ItemColor color;
+    }
+
+    public List<SetItem> currentSet = new List<SetItem>();
+
     void Start()
     {
         timer = Time.time;
+        currentSet = NewSet();
     }
 
     void Update()
@@ -36,6 +47,78 @@ public class ResourceSpawner : MonoBehaviour
             }
         }
     }
+    List<SetItem> LazySet()
+    {
+        if (currentSet.Count == 0)
+        {
+            currentSet = NewSet();
+        }
+
+        return currentSet;
+    }
+
+    List<SetItem> NewSet()
+    {
+        List<SetItem> set = new List<SetItem>();
+
+        List<Item.ItemColor> diceColors = new List<Item.ItemColor>();
+        diceColors.Add(Item.ItemColor.WHITE);
+        diceColors.Add(Item.ItemColor.WHITE);
+        diceColors.Add(Item.ItemColor.YELLOW);
+        diceColors.Add(Item.ItemColor.YELLOW);
+        diceColors.Add(Item.ItemColor.RED);
+        diceColors.Add(Item.ItemColor.RED);
+        diceColors.Add(Item.ItemColor.BLUE);
+        diceColors.Add(Item.ItemColor.BLUE);
+
+        for (int i=0; i<8; i++)
+        {
+            SetItem setItem = new SetItem();
+            setItem.type = Item.ItemType.DICE;
+            setItem.number = (Item.ItemNumber)Random.Range(0, 6);
+            setItem.color = diceColors[i];
+            set.Add(setItem);
+        }
+
+        List<Item.ItemColor> dotColors = new List<Item.ItemColor>();
+        dotColors.Add(Item.ItemColor.WHITE);
+        dotColors.Add(Item.ItemColor.YELLOW);
+        dotColors.Add(Item.ItemColor.RED);
+        dotColors.Add(Item.ItemColor.BLUE);
+
+        for (int i = 0; i < dotColors.Count; i++)
+        {
+            SetItem setItem = new SetItem();
+            setItem.type = Item.ItemType.DOT;
+            setItem.number = Item.ItemNumber.ONE;
+            setItem.color = dotColors[i];
+            set.Add(setItem);
+        }
+
+        List<Item.ItemColor> effectColors = new List<Item.ItemColor>();
+        dotColors.Add(Item.ItemColor.WHITE);
+        dotColors.Add(Item.ItemColor.YELLOW);
+        dotColors.Add(Item.ItemColor.RED);
+        dotColors.Add(Item.ItemColor.BLUE);
+
+        {
+            SetItem setItem = new SetItem();
+            setItem.type = Item.ItemType.PLUS;
+            setItem.number = Item.ItemNumber.ONE;
+            setItem.color = effectColors[Random.Range(0, effectColors.Count)];
+            set.Add(setItem);
+        }
+
+        {
+            SetItem setItem = new SetItem();
+            setItem.type = Item.ItemType.MINUS;
+            setItem.number = Item.ItemNumber.ONE;
+            setItem.color = effectColors[Random.Range(0, effectColors.Count)];
+            set.Add(setItem);
+        }
+
+        return set;
+    }
 
     void SpawnRandomItemObject()
     {
@@ -43,36 +126,19 @@ public class ResourceSpawner : MonoBehaviour
         AttachPoint targetBeltAttachPoint = targetBelt.GetAttachPoint();
         if (targetBeltAttachPoint)
         {
+            LazySet();
+            int randomIndex = Random.Range(0, currentSet.Count);
+            SetItem setItem = currentSet[randomIndex];
+            currentSet.RemoveAt(randomIndex);
 
-            if (Random.Range(0,5) == 0)
-            {
-                Item.ItemType type;
-                if (Random.Range(0, 2) == 0)
-                {
-                    type = Item.ItemType.PLUS;
-                } else
-                {
-                    type = Item.ItemType.MINUS;
-                }
-                GameObject itemObject = Instantiate(itemPrefab);
-                Item item = itemObject.GetComponent<Item>();
-                item.type = type;
-                item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
-                item.color = randomColors[Random.Range(0, randomColors.Count)];
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = setItem.type;
+            item.number = setItem.number;
+            item.color = setItem.color;
 
-                targetBeltAttachPoint.Attach(item);
-                onItemSpawned?.Invoke(this, item);
-            } else
-            {
-                GameObject itemObject = Instantiate(itemPrefab);
-                Item item = itemObject.GetComponent<Item>();
-                item.type = (Item.ItemType)Random.Range(0, 2);
-                item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
-                item.color = randomColors[Random.Range(0, randomColors.Count)];
-
-                targetBeltAttachPoint.Attach(item);
-                onItemSpawned?.Invoke(this, item);
-            }
+            targetBeltAttachPoint.Attach(item);
+            onItemSpawned?.Invoke(this, item);
         }
     }
 }
