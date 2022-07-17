@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickupPoint : MonoBehaviour
 {
+    public GameObject initialItem;
     public bool pickup = true;
     public bool dropoff = true;
 
@@ -12,6 +13,11 @@ public class PickupPoint : MonoBehaviour
     void Start()
     {
         attachPoint = GetComponent<AttachPoint>();
+
+        if (initialItem)
+        {
+            AddItem(initialItem.GetComponent<Item>());
+        }
     }
 
     public virtual Item PickupItem()
