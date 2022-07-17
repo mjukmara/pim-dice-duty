@@ -12,11 +12,15 @@ public class ScoreSpawner : MonoBehaviour
 		instance = this;
 	}
 
-	void Spawn(int addScore, Vector3 position)
+	void Spawn(int addScore, Vector3 position, bool raw)
 	{
 		GameObject scoreInstance = Instantiate(score, position, Quaternion.identity);
 
-		float newScore = addScore * Game.multiplier;
+		float newScore = addScore;
+		if (!raw)
+        {
+			newScore *= Game.multiplier;
+		}
 
 		string suffix = "";
 		if (newScore > 100) { suffix = "!"; }
@@ -26,13 +30,17 @@ public class ScoreSpawner : MonoBehaviour
 		if (newScore >= 2500) { suffix = "?!?!?!"; }
 
 		string text = addScore + " X" + Game.multiplier + suffix;
+		if (!raw)
+        {
+			text = addScore + suffix;
+		}
 		scoreInstance.GetComponent<Score>().Set(text);
 
-		Game.AddScore(addScore * Game.multiplier);
+		Game.AddScore((int)newScore);
 	}
 
-	public static void SpawnScore(int addScore, Vector3 position)
+	public static void SpawnScore(int addScore, Vector3 position, bool raw)
 	{
-		instance.Spawn(addScore, position);
+		instance.Spawn(addScore, position, raw);
 	}
 }

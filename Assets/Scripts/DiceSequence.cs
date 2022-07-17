@@ -96,7 +96,7 @@ public class DiceSequence : MonoBehaviour
                     CameraManager.instance.Shake(0.1f, 0.2f);
                     Game.multiplier += 1;
 
-                    ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
+                    ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position, false);
 
                     DestroySpecificDie(i);
                     success = true;
@@ -109,7 +109,7 @@ public class DiceSequence : MonoBehaviour
                 AudioManager.Instance.PlaySfx("LoseMultiplier");
                 Game.multiplier = 1;
 
-                ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position);
+                ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position, true);
             }
         }
 
@@ -117,7 +117,7 @@ public class DiceSequence : MonoBehaviour
         {
             Game.level += 1;
             StartCoroutine(RollDice(3));
-            ScoreSpawner.SpawnScore(1250, transform.position);
+            ScoreSpawner.SpawnScore(1250, transform.position, true);
 			AudioManager.Instance.PlaySfx("ClearLevel");
         }
     }

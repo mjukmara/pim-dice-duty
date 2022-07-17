@@ -200,6 +200,6 @@ public class Player : MonoBehaviour
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
 		AudioManager.Instance.PlaySfx("Craft1");
 		CameraManager.instance.Shake(0.1f, 0.2f);
-		ScoreSpawner.SpawnScore(score, body.transform.GetChild(0).position);
+		ScoreSpawner.SpawnScore(score, body.transform.GetChild(0).position, true);
 	}
 }
