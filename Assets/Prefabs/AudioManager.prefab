@@ -87,6 +87,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 30b9d0f66b282fb7c82fddeaf9c632e7, type: 3}
   - soundName: ClearLevel
     clip: {fileID: 8300000, guid: a54b06e14de3af9c281fc5704f52426a, type: 3}
+  - soundName: Spawn
+    clip: {fileID: 8300000, guid: dab9084c4fbe66990a806e03cb8f3865, type: 3}
+  - soundName: Place
+    clip: {fileID: 8300000, guid: f0238112a1303a541a1d0afa57d58e42, type: 3}
+  - soundName: Success
+    clip: {fileID: 8300000, guid: 23c5e169e4c398837b49e2836ddc1217, type: 3}
+  - soundName: Pickup
+    clip: {fileID: 8300000, guid: f0238112a1303a541a1d0afa57d58e42, type: 3}
 --- !u!82 &1817796589534121865
 AudioSource:
   m_ObjectHideFlags: 0

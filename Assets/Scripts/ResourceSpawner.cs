@@ -39,6 +39,7 @@ public class ResourceSpawner : MonoBehaviour
 
     void SpawnRandomItemObject()
     {
+		AudioManager.Instance.PlaySfx("Spawn");
         AttachPoint targetBeltAttachPoint = targetBelt.GetAttachPoint();
         if (targetBeltAttachPoint)
         {

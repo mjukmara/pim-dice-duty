@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
 
 				if (!isHoldingItems)
 				{
+					AudioManager.Instance.PlaySfx("Pickup");
 					Item item = pickupPoint.PickupItem();
 					inventory.AddItem(item);
 				}
@@ -137,6 +138,7 @@ public class Player : MonoBehaviour
 							this.inventory.AddItem(newItem);
 						}
 
+						AudioManager.Instance.PlaySfx("Success");
 						// chef.TryCookWith(this.inventory.items[0], this.inventory.items[1]);
 					}
 					else
@@ -156,6 +158,8 @@ public class Player : MonoBehaviour
 					{
 						pickupPoint.DropOffItem(this.inventory.PopItem());
 					}
+
+					AudioManager.Instance.PlaySfx("Place");
 				}
 				else
 				{
