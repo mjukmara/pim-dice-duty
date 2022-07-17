@@ -28,11 +28,6 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			ScoreSpawner.SpawnScore(1000, new Vector3(0, 0, 0));
-		}
-
 		scoreText.text = "Score: " + score;
 
 		if (score >= targetScore && !win)

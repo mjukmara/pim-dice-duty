@@ -121,11 +121,11 @@ public class Player : MonoBehaviour
 
 							pickupPoint.PickupItem();
 							GameObject newItemObject = chef.TryCookWith(item1, item2);
-							if (item1.gameObject)
+							if (item1 && item1.gameObject)
 							{
 								Destroy(item1.gameObject);
 							}
-							if (item1.gameObject)
+							if (item2 && item2.gameObject)
 							{
 								Destroy(item2.gameObject);
 							}
