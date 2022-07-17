@@ -15,7 +15,10 @@ public class Game : MonoBehaviour
 	public TMPro.TextMeshProUGUI multiplierText;
 	public TMPro.TextMeshProUGUI levelText;
 
-	int score = 0;
+	public int score = 0;
+	int renderedScore = 0;
+	float scoreTickRate = 16f;
+	float scoreTickTimer = 0f;
 	public int targetScore = 20000;
 
 	bool win = false;
@@ -31,7 +34,14 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-		scoreText.text = "Score: " + score;
+		scoreTickTimer += Time.deltaTime;
+		if (scoreTickTimer > 1f/scoreTickRate)
+        {
+			scoreTickTimer = 0f;
+			renderedScore += Mathf.CeilToInt((score - renderedScore) / 5f);
+		}
+
+		scoreText.text = "Score: " + renderedScore;
 		multiplierText.text = multiplier + "X";
 		levelText.text = "Level: " + level;
 
