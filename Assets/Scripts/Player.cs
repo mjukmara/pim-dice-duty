@@ -115,22 +115,25 @@ public class Player : MonoBehaviour
 					Item item2 = pickupPoint.GetItems()[0];
 
 					bool canCookWithResources = chef.CanCookWithItems(item1, item2);
-					if (canCookWithResources) { 
+					if (canCookWithResources)
+					{
 						while (pickupPoint.GetItems().Count > 0)
 						{
-
 							pickupPoint.PickupItem();
 							GameObject newItemObject = chef.TryCookWith(item1, item2);
+
+							Item newItem = newItemObject.GetComponent<Item>();
+							this.inventory.AddItem(newItem);
+
 							if (item1 && item1.gameObject)
 							{
+								this.inventory.RemoveItem(item1);
 								Destroy(item1.gameObject);
 							}
 							if (item2 && item2.gameObject)
 							{
 								Destroy(item2.gameObject);
 							}
-							Item newItem = newItemObject.GetComponent<Item>();
-							this.inventory.AddItem(newItem);
 						}
 
 						// chef.TryCookWith(this.inventory.items[0], this.inventory.items[1]);
@@ -142,9 +145,12 @@ public class Player : MonoBehaviour
 		{
 			if (pickupPoint.IsInteractable() && pickupPoint.dropoff)
 			{
-				while (this.inventory.items.Count > 0)
+				if (pickupPoint.GetItems().Count == 0)
 				{
-					pickupPoint.DropOffItem(this.inventory.PopItem());
+					while (this.inventory.items.Count > 0)
+					{
+						pickupPoint.DropOffItem(this.inventory.PopItem());
+					}
 				}
 			}
 		}
