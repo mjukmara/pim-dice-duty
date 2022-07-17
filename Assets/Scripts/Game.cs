@@ -7,11 +7,13 @@ public class Game : MonoBehaviour
 {
 	public GameObject celebration;
 	public static int multiplier = 1;
+	public static int level = 1;
 
 	static Game instance;
 	public TMPro.TextMeshProUGUI scoreText;
 	public TMPro.TextMeshProUGUI targetScoreText;
 	public TMPro.TextMeshProUGUI multiplierText;
+	public TMPro.TextMeshProUGUI levelText;
 
 	int score = 0;
 	public int targetScore = 20000;
@@ -31,6 +33,7 @@ public class Game : MonoBehaviour
     {
 		scoreText.text = "Score: " + score;
 		multiplierText.text = multiplier + "X";
+		levelText.text = "Level: " + level;
 
 		if (score >= targetScore && !win)
 		{
