@@ -77,8 +77,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d68450ffbcf4ad616968db22afafd027, type: 3}
   - soundName: FailCraft
     clip: {fileID: 8300000, guid: 6f29e97a9d53ef366848bbda1216c70b, type: 3}
-  - soundName: LoseMultiplier
-    clip: {fileID: 8300000, guid: d68450ffbcf4ad616968db22afafd027, type: 3}
   - soundName: TurnIn
     clip: {fileID: 8300000, guid: bdb12ad0f3ad8c179beb60c717b2b95c, type: 3}
 --- !u!82 &1817796589534121865
