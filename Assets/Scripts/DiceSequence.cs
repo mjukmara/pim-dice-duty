@@ -37,6 +37,8 @@ public class DiceSequence : MonoBehaviour
 
     public GameObject beltExitEmpty;
 
+    public int level = 0;
+
     List<Dice> diceInstances = new List<Dice>();
 
     private void OnEnable()
@@ -95,12 +97,17 @@ public class DiceSequence : MonoBehaviour
                 ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
 
                 DestroyFirstDie();
+            } else
+            {
+                ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position);
             }
         }
 
         if (diceInstances.Count == 0)
         {
+            level += 1;
             StartCoroutine(RollDice(3));
+            ScoreSpawner.SpawnScore(1250, transform.position);
         }
     }
 

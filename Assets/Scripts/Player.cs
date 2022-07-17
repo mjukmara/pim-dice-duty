@@ -152,9 +152,35 @@ public class Player : MonoBehaviour
 
 	void OnCookedItem(Item item)
 	{
+		int score = 0;
+		switch (item.number)
+		{
+			case Item.ItemNumber.ONE: score = 150; break;
+			case Item.ItemNumber.TWO: score = 75; break;
+			case Item.ItemNumber.THREE: score = 75; break;
+			case Item.ItemNumber.FOUR: score = 50; break;
+			case Item.ItemNumber.FIVE: score = 50; break;
+			case Item.ItemNumber.SIX: score = 25; break;
+		}
+
+		switch (item.color)
+		{
+			case Item.ItemColor.WHITE:
+			case Item.ItemColor.YELLOW:
+			case Item.ItemColor.RED:
+			case Item.ItemColor.BLUE:
+				score *= 1;
+				break;
+			case Item.ItemColor.ORANGE:
+			case Item.ItemColor.VIOLET:
+			case Item.ItemColor.GREEN:
+				score *= 2;
+				break;
+		}
+
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
 		AudioManager.Instance.PlaySfx("Test");
 		CameraManager.instance.Shake(0.1f, 0.2f);
-		ScoreSpawner.SpawnScore(2000, body.transform.GetChild(0).position);
+		ScoreSpawner.SpawnScore(score, body.transform.GetChild(0).position);
 	}
 }
