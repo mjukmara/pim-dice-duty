@@ -42,14 +42,12 @@ public class Hand : MonoBehaviour
     {
         this.item = item;
         attachPoint.Attach(item);
-        Debug.Log("Hands Add Item?");
 		SetHoldingSortingOrder(6);
     }
 
     public Item RemoveItem(Item item)
     {
         SetHoldingSortingOrder(3);
-        Debug.Log("Hands Remove Item?");
         this.item = null;
         return attachPoint.Detach(item);
     }

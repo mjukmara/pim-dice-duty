@@ -56,18 +56,13 @@ public class Chef : MonoBehaviour
 
     public GameObject TryCookWith(Item item1, Item item2)
     {
-        Debug.Log("TryCookWith item1.type: " + item1.type + " item2.type: " + item2.type);
         if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DICE)
         {
-            Debug.Log("Two dice");
             if (item1.color == item2.color)
             {
                 int numberA = Item.numberMap[item1.number];
-                Debug.Log("numberA: " + numberA);
                 int numberB = Item.numberMap[item2.number];
-                Debug.Log("numberB: " + numberB);
                 int sum = numberA + numberB;
-                Debug.Log("sum: " + sum);
                 if (sum <= 6)
                 {
                     GameObject itemObject = Instantiate(itemPrefab);
@@ -82,7 +77,6 @@ public class Chef : MonoBehaviour
         }
         if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DOT)
         {
-            Debug.Log("One dice and one dot");
             GameObject itemObject = Instantiate(itemPrefab);
             Item item = itemObject.GetComponent<Item>();
             item.type = Item.ItemType.DICE;
@@ -93,7 +87,6 @@ public class Chef : MonoBehaviour
         }
         if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DICE)
         {
-            Debug.Log("One dot and one dice");
             GameObject itemObject = Instantiate(itemPrefab);
             Item item = itemObject.GetComponent<Item>();
             item.type = Item.ItemType.DICE;
@@ -104,7 +97,6 @@ public class Chef : MonoBehaviour
         }
         if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DOT)
         {
-            Debug.Log("Two dots");
             if (item1.color == Item.ItemColor.WHITE)
             {
                 GameObject itemObject = Instantiate(itemPrefab);

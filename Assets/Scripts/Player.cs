@@ -152,7 +152,6 @@ public class Player : MonoBehaviour
 
 	void OnCookedItem(Item item)
 	{
-		Debug.Log("Player cooked item: " + item);
 		GameObject explosion = Instantiate(craftExplosion, body.transform.GetChild(0).position, Quaternion.identity);
 		AudioManager.Instance.PlaySfx("Test");
 		CameraManager.instance.Shake(0.1f, 0.2f);
