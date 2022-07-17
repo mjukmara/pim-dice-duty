@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
 	static Game instance;
 	public TMPro.TextMeshProUGUI scoreText;
 	public TMPro.TextMeshProUGUI targetScoreText;
+	public TMPro.TextMeshProUGUI multiplierText;
 
 	int score = 0;
 	public int targetScore = 20000;
@@ -29,6 +30,7 @@ public class Game : MonoBehaviour
     void Update()
     {
 		scoreText.text = "Score: " + score;
+		multiplierText.text = multiplier + "X";
 
 		if (score >= targetScore && !win)
 		{
