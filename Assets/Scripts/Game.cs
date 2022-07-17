@@ -38,7 +38,13 @@ public class Game : MonoBehaviour
 		if (scoreTickTimer > 1f/scoreTickRate)
         {
 			scoreTickTimer = 0f;
-			renderedScore += Mathf.CeilToInt((score - renderedScore) / 5f);
+
+			int delta = score - renderedScore;
+			if (delta >= 0)
+				renderedScore += Mathf.CeilToInt((score - renderedScore) / 5f);
+			else
+				renderedScore += Mathf.FloorToInt((score - renderedScore) / 5f);
+
 		}
 
 		scoreText.text = "Score: " + renderedScore;

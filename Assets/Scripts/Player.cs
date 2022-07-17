@@ -134,8 +134,8 @@ public class Player : MonoBehaviour
 								Destroy(item2.gameObject);
 							}
 
-							Item newItem = newItemObject.GetComponent<Item>();
-							this.inventory.AddItem(newItem);
+							Item newItem = newItemObject?.GetComponent<Item>();
+							this.inventory?.AddItem(newItem);
 						}
 
 						AudioManager.Instance.PlaySfx("Success");
