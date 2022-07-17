@@ -47,7 +47,7 @@ public class ResourceSpawner : MonoBehaviour
             if (Random.Range(0,5) == 0)
             {
                 Item.ItemType type;
-                if (Random.Range(0, 1) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
                     type = Item.ItemType.PLUS;
                 } else

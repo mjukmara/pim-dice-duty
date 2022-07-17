@@ -1976,6 +1976,7 @@ MonoBehaviour:
   targetScoreText: {fileID: 1712173590}
   multiplierText: {fileID: 1071599921}
   levelText: {fileID: 974841646}
+  score: 0
   targetScore: 200
 --- !u!4 &485510491
 Transform:
