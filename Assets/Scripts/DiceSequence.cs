@@ -48,23 +48,7 @@ public class DiceSequence : MonoBehaviour
 
     void Start()
     {
-
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartCoroutine(RollDice(1));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            StartCoroutine(RollDice(2));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            StartCoroutine(RollDice(3));
-        }
+        StartCoroutine(RollDice(3));
     }
 
     void OnBeltDestroyResource(Belt belt, Resource resource)
@@ -78,11 +62,16 @@ public class DiceSequence : MonoBehaviour
                 Debug.Log("Same dice");
                 DestroyFirstDie();
             }
-            if (firstDice.colorItem.resource == resource)
+            else if (firstDice.colorItem.resource == resource)
             {
                 Debug.Log("Same color");
                 DestroyFirstDie();
             }
+        }
+
+        if (diceInstances.Count == 0)
+        {
+            StartCoroutine(RollDice(3));
         }
     }
 
