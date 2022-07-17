@@ -61,10 +61,6 @@ public class DiceSequence : MonoBehaviour
             Dice firstDice = diceInstances[0];
             if (item.type == Item.ItemType.DICE && firstDice.number == item.number && firstDice.color == item.color)
             {
-                // GameObject explosion = Instantiate(successEffect, body.transform.GetChild(0).position, Quaternion.identity);
-                AudioManager.Instance.PlaySfx("TurnIn");
-                CameraManager.instance.Shake(0.1f, 0.2f);
-
                 int score = 0;
                 switch (item.number)
                 {
@@ -92,11 +88,19 @@ public class DiceSequence : MonoBehaviour
                 }
 
 
+				AudioManager.Instance.PlaySfx("LoseMultiplier");
+                AudioManager.Instance.PlaySfx("TurnIn");
+                CameraManager.instance.Shake(0.1f, 0.2f);
+				Game.multiplier += 1;
+
                 ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
 
                 DestroyFirstDie();
             } else
             {
+				AudioManager.Instance.PlaySfx("LoseMultiplier");
+				Game.multiplier = 1;
+
                 ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position);
             }
         }
