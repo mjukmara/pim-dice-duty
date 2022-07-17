@@ -67,6 +67,20 @@ MonoBehaviour:
   sounds:
   - soundName: Test
     clip: {fileID: 8300000, guid: a494cbfea1c0cd2ce8cf281c079ef398, type: 3}
+  - soundName: Select1
+    clip: {fileID: 8300000, guid: 2249226b25c5adcf8b6d4cb212da1430, type: 3}
+  - soundName: Select2
+    clip: {fileID: 8300000, guid: feaa061ad5a467f8d9a3c028817aa2c8, type: 3}
+  - soundName: Craft1
+    clip: {fileID: 8300000, guid: 6a48457386e6542ce98611fb3e087ec6, type: 3}
+  - soundName: LoseMultiplier
+    clip: {fileID: 8300000, guid: d68450ffbcf4ad616968db22afafd027, type: 3}
+  - soundName: FailCraft
+    clip: {fileID: 8300000, guid: 6f29e97a9d53ef366848bbda1216c70b, type: 3}
+  - soundName: LoseMultiplier
+    clip: {fileID: 8300000, guid: d68450ffbcf4ad616968db22afafd027, type: 3}
+  - soundName: TurnIn
+    clip: {fileID: 8300000, guid: bdb12ad0f3ad8c179beb60c717b2b95c, type: 3}
 --- !u!82 &1817796589534121865
 AudioSource:
   m_ObjectHideFlags: 0
