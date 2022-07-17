@@ -20,10 +20,10 @@ public class ScoreSpawner : MonoBehaviour
 
 		string suffix = "";
 		if (newScore > 100) { suffix = "!"; }
-		if (newScore > 250) { suffix = "!!"; }
-		if (newScore > 600) { suffix = "!!!"; }
-		if (newScore > 1000) { suffix = "?!"; }
-		if (newScore > 2500) { suffix = "?!?!?!"; }
+		if (newScore >= 300) { suffix = "!!"; }
+		if (newScore >= 600) { suffix = "!!!"; }
+		if (newScore >= 1000) { suffix = "?!"; }
+		if (newScore >= 2500) { suffix = "?!?!?!"; }
 
 		string text = addScore + " X" + Game.multiplier + suffix;
 		scoreInstance.GetComponent<Score>().Set(text);
