@@ -209,6 +209,7 @@ MonoBehaviour:
   speed: 3.6
   maxPickupDistance: 0.5
   alive: 1
+  hand: {fileID: 8068846509056541241}
   dice: {fileID: 5854363123822649230, guid: c0c0463e86d824f3daca08f0024c2ac5, type: 3}
 --- !u!114 &2705371969435634743
 MonoBehaviour:
@@ -386,3 +387,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3214933661198292667, guid: e27a208ee86a61b4484d6bcff02d5342, type: 3}
   m_PrefabInstance: {fileID: 4010867340236405283}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8068846509056541241 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6364496386967664666, guid: e27a208ee86a61b4484d6bcff02d5342, type: 3}
+  m_PrefabInstance: {fileID: 4010867340236405283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf74ddb369c593a4db2803885ca533bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

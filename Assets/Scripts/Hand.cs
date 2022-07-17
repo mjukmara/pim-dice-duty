@@ -57,7 +57,7 @@ public class Hand : MonoBehaviour
 		return item ? item.gameObject : null;
 	}
 
-	void SetHoldingSortingOrder(int sortingOrder)
+	public void SetHoldingSortingOrder(int sortingOrder)
 	{
         if (item)
         {

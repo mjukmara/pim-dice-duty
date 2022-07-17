@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
 {
     SpriteRenderer _spriteRenderer;
 
-    public enum ItemType { DICE, DOT };
+    public enum ItemType { DICE, DOT, PLUS, MINUS };
 
     public enum ItemColor { WHITE, YELLOW, ORANGE, RED, VIOLET, BLUE, GREEN };
 
@@ -35,6 +35,8 @@ public class Item : MonoBehaviour
 
     public List<Sprite> diceSprites;
     public Sprite dotSprite;
+    public Sprite plusSprite;
+    public Sprite minusSprite;
     public ItemType type;
     public ItemNumber number;
     public ItemColor color;
@@ -54,6 +56,14 @@ public class Item : MonoBehaviour
         if (type == ItemType.DOT)
         {
             _spriteRenderer.sprite = dotSprite;
+        }
+        if (type == ItemType.PLUS)
+        {
+            _spriteRenderer.sprite = plusSprite;
+        }
+        if (type == ItemType.MINUS)
+        {
+            _spriteRenderer.sprite = minusSprite;
         }
     }
 }

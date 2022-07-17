@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	Animator bodyAnimator;
 	Inventory inventory;
 	Chef chef;
+	public Hand hand;
 
 	public GameObject dice;
 
@@ -122,9 +123,6 @@ public class Player : MonoBehaviour
 							pickupPoint.PickupItem();
 							GameObject newItemObject = chef.TryCookWith(item1, item2);
 
-							Item newItem = newItemObject.GetComponent<Item>();
-							this.inventory.AddItem(newItem);
-
 							if (item1 && item1.gameObject)
 							{
 								this.inventory.RemoveItem(item1);
@@ -134,6 +132,9 @@ public class Player : MonoBehaviour
 							{
 								Destroy(item2.gameObject);
 							}
+
+							Item newItem = newItemObject.GetComponent<Item>();
+							this.inventory.AddItem(newItem);
 						}
 
 						// chef.TryCookWith(this.inventory.items[0], this.inventory.items[1]);

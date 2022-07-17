@@ -53,6 +53,8 @@ MonoBehaviour:
   - {fileID: 1659987490, guid: 85d740e634f85f6b48e145430f9dee5c, type: 3}
   - {fileID: -216148310, guid: 85d740e634f85f6b48e145430f9dee5c, type: 3}
   dotSprite: {fileID: -1918322472, guid: 11488970215b2b158a0b749d65572cd9, type: 3}
+  plusSprite: {fileID: 461616980, guid: d877ba0870b0c35ee8d06bba4a89b5be, type: 3}
+  minusSprite: {fileID: -1481237494, guid: d877ba0870b0c35ee8d06bba4a89b5be, type: 3}
   type: 0
   number: 0
   color: 0

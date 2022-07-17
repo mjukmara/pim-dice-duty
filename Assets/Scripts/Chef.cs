@@ -19,6 +19,68 @@ public class Chef : MonoBehaviour
 
     public bool CanCookWithItems(Item item1, Item item2)
     {
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.PLUS)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberA = Item.numberMap[item1.number];
+                if (numberA < 6)
+                {
+                    return true;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.PLUS && item2.type == Item.ItemType.DICE)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberB = Item.numberMap[item2.number];
+                if (numberB < 6)
+                {
+                    return true;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.PLUS && item2.type == Item.ItemType.DOT)
+        {
+            return true;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.PLUS)
+        {
+            return true;
+        }
+
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.MINUS)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberA = Item.numberMap[item1.number];
+                if (numberA > 1)
+                {
+                    return true;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.MINUS && item2.type == Item.ItemType.DICE)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberB = Item.numberMap[item2.number];
+                if (numberB > 1)
+                {
+                    return true;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.MINUS && item2.type == Item.ItemType.DOT)
+        {
+            return true;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.MINUS)
+        {
+            return true;
+        }
+
         if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DICE)
         {
             if (item1.color == item2.color) {
@@ -56,6 +118,116 @@ public class Chef : MonoBehaviour
 
     public GameObject TryCookWith(Item item1, Item item2)
     {
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.PLUS)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberA = Item.numberMap[item1.number];
+                if (numberA < 6)
+                {
+                    GameObject itemObject = Instantiate(itemPrefab);
+                    Item item = itemObject.GetComponent<Item>();
+                    item.type = Item.ItemType.DICE;
+                    item.number = (Item.ItemNumber)(numberA + 1 - 1);
+                    item.color = item1.color;
+                    onCookedItem?.Invoke(item);
+                    return itemObject;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.PLUS && item2.type == Item.ItemType.DICE)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberB = Item.numberMap[item2.number];
+                if (numberB < 6)
+                {
+                    GameObject itemObject = Instantiate(itemPrefab);
+                    Item item = itemObject.GetComponent<Item>();
+                    item.type = Item.ItemType.DICE;
+                    item.number = (Item.ItemNumber)(numberB + 1 - 1);
+                    item.color = item2.color;
+                    onCookedItem?.Invoke(item);
+                    return itemObject;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.PLUS && item2.type == Item.ItemType.DOT)
+        {
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.PLUS;
+            item.number = item1.number;
+            item.color = item2.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.PLUS)
+        {
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.PLUS;
+            item.number = item2.number;
+            item.color = item1.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.MINUS)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberA = Item.numberMap[item1.number];
+                if (numberA > 1)
+                {
+                    GameObject itemObject = Instantiate(itemPrefab);
+                    Item item = itemObject.GetComponent<Item>();
+                    item.type = Item.ItemType.DICE;
+                    item.number = (Item.ItemNumber)(numberA - 1 - 1);
+                    item.color = item1.color;
+                    onCookedItem?.Invoke(item);
+                    return itemObject;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.MINUS && item2.type == Item.ItemType.DICE)
+        {
+            if (item1.color == item2.color)
+            {
+                int numberB = Item.numberMap[item2.number];
+                if (numberB > 6)
+                {
+                    GameObject itemObject = Instantiate(itemPrefab);
+                    Item item = itemObject.GetComponent<Item>();
+                    item.type = Item.ItemType.DICE;
+                    item.number = (Item.ItemNumber)(numberB - 1 - 1);
+                    item.color = item2.color;
+                    onCookedItem?.Invoke(item);
+                    return itemObject;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.MINUS && item2.type == Item.ItemType.DOT)
+        {
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.MINUS;
+            item.number = item1.number;
+            item.color = item2.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.MINUS)
+        {
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.MINUS;
+            item.number = item2.number;
+            item.color = item1.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+
         if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DICE)
         {
             if (item1.color == item2.color)

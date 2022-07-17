@@ -42,14 +42,36 @@ public class ResourceSpawner : MonoBehaviour
         AttachPoint targetBeltAttachPoint = targetBelt.GetAttachPoint();
         if (targetBeltAttachPoint)
         {
-            GameObject itemObject = Instantiate(itemPrefab);
-            Item item = itemObject.GetComponent<Item>();
-            item.type = (Item.ItemType)Random.Range(0, 2);
-            item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
-            item.color = randomColors[Random.Range(0, randomColors.Count)];
 
-            targetBeltAttachPoint.Attach(item);
-            onItemSpawned?.Invoke(this, item);
+            if (Random.Range(0,5) == 0)
+            {
+                Item.ItemType type;
+                if (Random.Range(0, 1) == 0)
+                {
+                    type = Item.ItemType.PLUS;
+                } else
+                {
+                    type = Item.ItemType.MINUS;
+                }
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = type;
+                item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
+                item.color = randomColors[Random.Range(0, randomColors.Count)];
+
+                targetBeltAttachPoint.Attach(item);
+                onItemSpawned?.Invoke(this, item);
+            } else
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = (Item.ItemType)Random.Range(0, 2);
+                item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
+                item.color = randomColors[Random.Range(0, randomColors.Count)];
+
+                targetBeltAttachPoint.Attach(item);
+                onItemSpawned?.Invoke(this, item);
+            }
         }
     }
 }
