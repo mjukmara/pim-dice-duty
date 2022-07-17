@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Resource> items;
+    public List<Item> items;
 
     public enum ChangeType { ADD, REMOVE };
 
-    public delegate void OnInventoryChange(ChangeType changeType, Resource item);
+    public delegate void OnInventoryChange(ChangeType changeType, Item item);
     public static OnInventoryChange onInventoryChange;
 
-    public void AddItem(Resource item)
+    public void AddItem(Item item)
     {
         this.items.Add(item);
         onInventoryChange?.Invoke(ChangeType.ADD, item);
     }
 
-    public void RemoveItem(Resource item)
+    public void RemoveItem(Item item)
     {
         this.items.Remove(item);
         onInventoryChange?.Invoke(ChangeType.REMOVE, item);
     }
 
-    public Resource PopItem()
+    public Item PopItem()
     {
         if (this.items.Count == 0) return null;
-        Resource temp = this.items[this.items.Count - 1];
+        Item temp = this.items[this.items.Count - 1];
         this.items.RemoveAt(this.items.Count - 1);
         onInventoryChange?.Invoke(ChangeType.REMOVE, temp);
         return temp;
     }
 
-    public List<Resource> GetItems()
+    public List<Item> GetItems()
     {
         return this.items;
     }

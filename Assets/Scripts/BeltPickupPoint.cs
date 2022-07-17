@@ -6,54 +6,48 @@ public class BeltPickupPoint : PickupPoint
 {
     public Belt belt;
 
-    override public Resource PickupResource()
+    override public Item PickupItem()
     {
         if (belt.IsMoving()) return null;
         if (!pickup) return null;
 
         AttachPoint attachPoint = belt.GetAttachPoint();
-        return attachPoint.DetachLastResource();
+        return attachPoint.DetachLast();
     }
 
-    override public bool DropOffResource(Resource resource)
+    override public bool DropOffItem(Item item)
     {
         if (belt.IsMoving()) return false;
         if (!dropoff) return false;
 
         AttachPoint attachPoint = belt.GetAttachPoint();
-        attachPoint.AttachResource(resource);
+        attachPoint.Attach(item);
 
         return true;
     }
 
-    override public void AddResource(Resource resource)
+    override public void AddItem(Item item)
     {
         AttachPoint attachPoint = belt.GetAttachPoint();
-        attachPoint.AttachResource(resource);
+        attachPoint.Attach(item);
     }
 
-    override public Resource RemoveResource(Resource resource)
+    override public Item RemoveItem(Item item)
     {
         AttachPoint attachPoint = belt.GetAttachPoint();
-        return attachPoint.DetachResource(resource);
+        return attachPoint.Detach(item);
     }
 
-    override public Resource PopResource()
+    override public Item PopItem()
     {
         AttachPoint attachPoint = belt.GetAttachPoint();
-        return attachPoint.DetachLastResource();
+        return attachPoint.DetachLast();
     }
 
-    override public List<AttachPoint.Attachment> GetItems()
+    override public List<Item> GetItems()
     {
         AttachPoint attachPoint = belt.GetAttachPoint();
         return attachPoint.GetAttachments();
-    }
-
-    override public List<Resource> GetResources()
-    {
-        AttachPoint attachPoint = belt.GetAttachPoint();
-        return attachPoint.GetAttachmentsResources();
     }
 
     public override AttachPoint GetAttachPoint()

@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
+    public GameObject itemPrefab;
     public List<Resource> resources;
     public float spawnInterval = 5f;
     public Belt targetBelt;
+    public List<Item.ItemNumber> randomNumbers;
+    public List<Item.ItemColor> randomColors;
 
     float timer;
     public bool isSpawning = false;
 
-    public delegate void OnResourceSpawned(ResourceSpawner resourceSpawner, Resource resource);
-    public static OnResourceSpawned onResourceSpawned;
+    public delegate void OnItemSpawned(ResourceSpawner resourceSpawner, Item item);
+    public static OnItemSpawned onItemSpawned;
 
     void Start()
     {
@@ -29,17 +32,24 @@ public class ResourceSpawner : MonoBehaviour
             timer = 0;
             if (targetBelt)
             {
-                if (resources.Count > 0)
-                {
-                    Resource resource = resources[Random.Range(0, resources.Count)];
-                    AttachPoint attachPoint = targetBelt.GetAttachPoint();
-                    if (attachPoint)
-                    {
-                        attachPoint.AttachResource(resource);
-                        onResourceSpawned?.Invoke(this, resource);
-                    }
-                }
+                SpawnRandomItemObject();
             }
+        }
+    }
+
+    void SpawnRandomItemObject()
+    {
+        AttachPoint targetBeltAttachPoint = targetBelt.GetAttachPoint();
+        if (targetBeltAttachPoint)
+        {
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = (Item.ItemType)Random.Range(0, 2);
+            item.number = randomNumbers[Random.Range(0, randomNumbers.Count)];
+            item.color = randomColors[Random.Range(0, randomColors.Count)];
+
+            targetBeltAttachPoint.Attach(item);
+            onItemSpawned?.Invoke(this, item);
         }
     }
 }

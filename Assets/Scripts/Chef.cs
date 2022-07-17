@@ -4,57 +4,165 @@ using UnityEngine;
 
 public class Chef : MonoBehaviour
 {
+    public GameObject itemPrefab;
     public List<CookBook> cookBooks;
 
     Inventory inventory;
 
-    public delegate void OnCookedRecipe(Recipe recipe);
-    public static OnCookedRecipe onCookedRecipe;
+    public delegate void OnCookedItem(Item item);
+    public static OnCookedItem onCookedItem;
 
     public void Start()
     {
         this.inventory = gameObject.GetComponent<Inventory>();
     }
 
-    public bool CanCookWithExtraResources(List<Resource> resources)
+    public bool CanCookWithItems(Item item1, Item item2)
     {
-        List<Resource> available = new List<Resource>(this.inventory.GetItems());
-        available.AddRange(resources);
-        List<Recipe> possibleRecipes = new List<Recipe>();
-        foreach(CookBook cookBook in cookBooks)
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DICE)
         {
-            possibleRecipes.AddRange(CookBook.FindAllPossibleRecipes(cookBook, available));
+            if (item1.color == item2.color) {
+                int numberA = Item.numberMap[item1.number];
+                int numberB = Item.numberMap[item2.number];
+                int sum = numberA + numberB;
+                if (sum <= 6) return true;
+            }
         }
-        return possibleRecipes.Count > 0;
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DOT)
+        {
+            return true;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DICE)
+        {
+            return true;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DOT)
+        {
+            if (item1.color == Item.ItemColor.WHITE) return true;
+            if (item2.color == Item.ItemColor.WHITE) return true;
+
+            if (item1.color == Item.ItemColor.YELLOW && item2.color == Item.ItemColor.RED) return true;
+            if (item1.color == Item.ItemColor.RED && item2.color == Item.ItemColor.YELLOW) return true;
+
+            if (item1.color == Item.ItemColor.YELLOW && item2.color == Item.ItemColor.BLUE) return true;
+            if (item1.color == Item.ItemColor.BLUE && item2.color == Item.ItemColor.YELLOW) return true;
+
+            if (item1.color == Item.ItemColor.RED && item2.color == Item.ItemColor.BLUE) return true;
+            if (item1.color == Item.ItemColor.BLUE && item2.color == Item.ItemColor.RED) return true;
+        }
+
+        return false;
     }
 
-    public Recipe TryCookAnyRecipe()
+    public GameObject TryCookWith(Item item1, Item item2)
     {
-        List<Recipe> possibleRecipes = new List<Recipe>();
-        foreach (CookBook cookBook in cookBooks)
+        Debug.Log("TryCookWith item1.type: " + item1.type + " item2.type: " + item2.type);
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DICE)
         {
-            possibleRecipes.AddRange(CookBook.FindAllPossibleRecipes(cookBook, this.inventory.GetItems()));
+            Debug.Log("Two dice");
+            if (item1.color == item2.color)
+            {
+                int numberA = Item.numberMap[item1.number];
+                Debug.Log("numberA: " + numberA);
+                int numberB = Item.numberMap[item2.number];
+                Debug.Log("numberB: " + numberB);
+                int sum = numberA + numberB;
+                Debug.Log("sum: " + sum);
+                if (sum <= 6)
+                {
+                    GameObject itemObject = Instantiate(itemPrefab);
+                    Item item = itemObject.GetComponent<Item>();
+                    item.type = Item.ItemType.DICE;
+                    item.number = (Item.ItemNumber)(sum-1);
+                    item.color = item1.color;
+                    onCookedItem?.Invoke(item);
+                    return itemObject;
+                }
+            }
+        }
+        if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.DOT)
+        {
+            Debug.Log("One dice and one dot");
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.DICE;
+            item.number = item1.number;
+            item.color = item2.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DICE)
+        {
+            Debug.Log("One dot and one dice");
+            GameObject itemObject = Instantiate(itemPrefab);
+            Item item = itemObject.GetComponent<Item>();
+            item.type = Item.ItemType.DICE;
+            item.number = item2.number;
+            item.color = item1.color;
+            onCookedItem?.Invoke(item);
+            return itemObject;
+        }
+        if (item1.type == Item.ItemType.DOT && item2.type == Item.ItemType.DOT)
+        {
+            Debug.Log("Two dots");
+            if (item1.color == Item.ItemColor.WHITE)
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = Item.ItemType.DOT;
+                item.number = item1.number;
+                item.color = item2.color;
+                onCookedItem?.Invoke(item);
+                return itemObject;
+            }
+            if (item2.color == Item.ItemColor.WHITE)
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = Item.ItemType.DOT;
+                item.number = item2.number;
+                item.color = item1.color;
+                onCookedItem?.Invoke(item);
+                return itemObject;
+            }
+
+            if (item1.color == Item.ItemColor.YELLOW && item2.color == Item.ItemColor.RED ||
+                item1.color == Item.ItemColor.RED && item2.color == Item.ItemColor.YELLOW)
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = Item.ItemType.DOT;
+                item.number = item1.number;
+                item.color = Item.ItemColor.ORANGE;
+                onCookedItem?.Invoke(item);
+                return itemObject;
+            }
+
+            if (item1.color == Item.ItemColor.YELLOW && item2.color == Item.ItemColor.BLUE ||
+                item1.color == Item.ItemColor.BLUE && item2.color == Item.ItemColor.YELLOW)
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = Item.ItemType.DOT;
+                item.number = item1.number;
+                item.color = Item.ItemColor.GREEN;
+                onCookedItem?.Invoke(item);
+                return itemObject;
+            }
+
+            if (item1.color == Item.ItemColor.RED && item2.color == Item.ItemColor.BLUE ||
+                item1.color == Item.ItemColor.BLUE && item2.color == Item.ItemColor.RED)
+            {
+                GameObject itemObject = Instantiate(itemPrefab);
+                Item item = itemObject.GetComponent<Item>();
+                item.type = Item.ItemType.DOT;
+                item.number = item1.number;
+                item.color = Item.ItemColor.VIOLET;
+                onCookedItem?.Invoke(item);
+                return itemObject;
+            }
         }
 
-        if (possibleRecipes.Count == 0)
-        {
-            return null;
-        }
-
-        Recipe recipe = possibleRecipes[Random.Range(0, possibleRecipes.Count)];
-
-        foreach (Resource resource in recipe.consumes)
-        {
-            this.inventory.RemoveItem(resource);
-        }
-
-        foreach (Resource resource in recipe.produces)
-        {
-            this.inventory.AddItem(resource);
-        }
-
-        onCookedRecipe?.Invoke(recipe);
-
-        return recipe;
+        return null;
     }
 }

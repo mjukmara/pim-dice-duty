@@ -21,8 +21,9 @@ public class DiceSequence : MonoBehaviour
     public class Dice
     {
         public GameObject diceInstance;
-        public DiceItem diceItem;
-        public ColorItem colorItem;
+        public Item.ItemNumber number;
+        public Item.ItemColor color;
+        public Color spriteColor;
     }
 
     public List<DiceItem> dices;
@@ -38,12 +39,12 @@ public class DiceSequence : MonoBehaviour
 
     private void OnEnable()
     {
-        Belt.onBeltDestroyResource += OnBeltDestroyResource;
+        Belt.onBeltDestroyItem += OnBeltDestroyItem;
     }
 
     private void OnDisable()
     {
-        Belt.onBeltDestroyResource -= OnBeltDestroyResource;
+        Belt.onBeltDestroyItem -= OnBeltDestroyItem;
     }
 
     void Start()
@@ -51,20 +52,13 @@ public class DiceSequence : MonoBehaviour
         StartCoroutine(RollDice(3));
     }
 
-    void OnBeltDestroyResource(Belt belt, Resource resource)
+    void OnBeltDestroyItem(Belt belt, Item item)
     {
-        // Debug.Log("Resources was destroyed: " + resource.label);
         if (diceInstances.Count > 0)
         {
             Dice firstDice = diceInstances[0];
-            if (firstDice.diceItem.resource == resource)
+            if (item.type == Item.ItemType.DICE && firstDice.number == item.number && firstDice.color == item.color)
             {
-                Debug.Log("Same dice");
-                DestroyFirstDie();
-            }
-            else if (firstDice.colorItem.resource == resource)
-            {
-                Debug.Log("Same color");
                 DestroyFirstDie();
             }
         }
@@ -77,20 +71,28 @@ public class DiceSequence : MonoBehaviour
 
     void SpawnDie(Vector3 position)
     {
-        DiceItem diceItem = dices[Random.Range(0, dices.Count)];
-        ColorItem colorItem = colors[Random.Range(0, colors.Count)];
+
+        // DiceItem diceItem = dices[Random.Range(0, dices.Count)];
+        // ColorItem colorItem = colors[Random.Range(0, colors.Count)];
+
+        int numberIndex = Random.Range(0, 6);
+        int colorIndex = Random.Range(0, 7);
+        Item.ItemNumber itemNumber = (Item.ItemNumber)numberIndex;
+        Item.ItemColor itemColor = (Item.ItemColor)colorIndex;
+        Color spriteColor = Item.colorMap[(Item.ItemColor)colorIndex];
 
         GameObject diceInstance = Instantiate(dicePrefab, position, Quaternion.identity);
         diceInstance.transform.SetParent(transform);
         diceInstance.transform.localPosition = position;
 
-        diceInstance.GetComponent<DiceGoalScript>().Set(colorItem.color, diceItem.digit);
+        diceInstance.GetComponent<DiceGoalScript>().Set(spriteColor, numberIndex);
         diceInstance.GetComponent<Animator>().speed = animatorSpeed;
 
         Dice dice = new Dice();
         dice.diceInstance = diceInstance;
-        dice.diceItem = diceItem;
-        dice.colorItem = colorItem;
+        dice.number = itemNumber;
+        dice.color = itemColor;
+        dice.spriteColor = spriteColor;
 
         diceInstances.Add(dice);
     }

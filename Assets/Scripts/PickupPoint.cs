@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickupPoint : MonoBehaviour
 {
-    public Resource startResource;
     public bool pickup = true;
     public bool dropoff = true;
 
@@ -13,51 +12,42 @@ public class PickupPoint : MonoBehaviour
     void Start()
     {
         attachPoint = GetComponent<AttachPoint>();
-        if (startResource)
-        {
-            attachPoint.AttachResource(startResource);
-        }
     }
 
-    public virtual Resource PickupResource()
+    public virtual Item PickupItem()
     {
         if (!pickup) return null;
 
-        return attachPoint.DetachLastResource();
+        return attachPoint.DetachLast();
     }
 
-    public virtual bool DropOffResource(Resource resource)
+    public virtual bool DropOffItem(Item item)
     {
         if (!dropoff) return false;
 
-        attachPoint.AttachResource(resource);
+        attachPoint.Attach(item);
 
         return true;
     }
 
-    public virtual void AddResource(Resource resource)
+    public virtual void AddItem(Item item)
     {
-        attachPoint.AttachResource(resource);
+        attachPoint.Attach(item);
     }
 
-    public virtual Resource RemoveResource(Resource resource)
+    public virtual Item RemoveItem(Item item)
     {
-        return attachPoint.DetachResource(resource);
+        return attachPoint.Detach(item);
     }
 
-    public virtual Resource PopResource()
+    public virtual Item PopItem()
     {
-        return attachPoint.DetachLastResource();
+        return attachPoint.DetachLast();
     }
 
-    public virtual List<AttachPoint.Attachment> GetItems()
+    public virtual List<Item> GetItems()
     {
         return attachPoint.GetAttachments();
-    }
-
-    public virtual List<Resource> GetResources()
-    {
-        return attachPoint.GetAttachmentsResources();
     }
 
     public virtual AttachPoint GetAttachPoint()
