@@ -58,48 +58,56 @@ public class DiceSequence : MonoBehaviour
     {
         if (diceInstances.Count > 0)
         {
-            Dice firstDice = diceInstances[0];
-            if (item.type == Item.ItemType.DICE && firstDice.number == item.number && firstDice.color == item.color)
+            bool success = false;
+            for (int i=0; i<diceInstances.Count; i++)
             {
-                int score = 0;
-                switch (item.number)
+                Dice aDice = diceInstances[i];
+                if (item.type == Item.ItemType.DICE && aDice.number == item.number && aDice.color == item.color)
                 {
-                    case Item.ItemNumber.ONE: score = 200; break;
-                    case Item.ItemNumber.TWO: score = 150; break;
-                    case Item.ItemNumber.THREE: score = 150; break;
-                    case Item.ItemNumber.FOUR: score = 100; break;
-                    case Item.ItemNumber.FIVE: score = 100; break;
-                    case Item.ItemNumber.SIX: score = 50; break;
+                    int score = 0;
+                    switch (item.number)
+                    {
+                        case Item.ItemNumber.ONE: score = 200; break;
+                        case Item.ItemNumber.TWO: score = 150; break;
+                        case Item.ItemNumber.THREE: score = 150; break;
+                        case Item.ItemNumber.FOUR: score = 100; break;
+                        case Item.ItemNumber.FIVE: score = 100; break;
+                        case Item.ItemNumber.SIX: score = 50; break;
+                    }
+
+                    switch (item.color)
+                    {
+                        case Item.ItemColor.WHITE:
+                        case Item.ItemColor.YELLOW:
+                        case Item.ItemColor.RED:
+                        case Item.ItemColor.BLUE:
+                            score *= 1;
+                            break;
+                        case Item.ItemColor.ORANGE:
+                        case Item.ItemColor.VIOLET:
+                        case Item.ItemColor.GREEN:
+                            score *= 2;
+                            break;
+                    }
+
+
+                    AudioManager.Instance.PlaySfx("LoseMultiplier");
+                    AudioManager.Instance.PlaySfx("TurnIn");
+                    CameraManager.instance.Shake(0.1f, 0.2f);
+                    Game.multiplier += 1;
+
+                    ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
+
+                    DestroySpecificDie(i);
+                    success = true;
+                    break;
                 }
+            }
 
-                switch (item.color)
-                {
-                    case Item.ItemColor.WHITE:
-                    case Item.ItemColor.YELLOW:
-                    case Item.ItemColor.RED:
-                    case Item.ItemColor.BLUE:
-                        score *= 1;
-                        break;
-                    case Item.ItemColor.ORANGE:
-                    case Item.ItemColor.VIOLET:
-                    case Item.ItemColor.GREEN:
-                        score *= 2;
-                        break;
-                }
-
-
-				AudioManager.Instance.PlaySfx("LoseMultiplier");
-                AudioManager.Instance.PlaySfx("TurnIn");
-                CameraManager.instance.Shake(0.1f, 0.2f);
-				Game.multiplier += 1;
-
-                ScoreSpawner.SpawnScore(score, beltExitEmpty.transform.position);
-
-                DestroyFirstDie();
-            } else
+            if (!success)
             {
-				AudioManager.Instance.PlaySfx("LoseMultiplier");
-				Game.multiplier = 1;
+                AudioManager.Instance.PlaySfx("LoseMultiplier");
+                Game.multiplier = 1;
 
                 ScoreSpawner.SpawnScore(-50, beltExitEmpty.transform.position);
             }
@@ -168,5 +176,12 @@ public class DiceSequence : MonoBehaviour
         if (diceInstances.Count == 0) return;
         Destroy(diceInstances[0].diceInstance);
         diceInstances.RemoveAt(0);
+    }
+
+    void DestroySpecificDie(int index)
+    {
+        if (index < 0 || index >= diceInstances.Count) return;
+        Destroy(diceInstances[index].diceInstance);
+        diceInstances.RemoveAt(index);
     }
 }

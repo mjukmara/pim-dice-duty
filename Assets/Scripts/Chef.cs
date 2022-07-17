@@ -19,6 +19,8 @@ public class Chef : MonoBehaviour
 
     public bool CanCookWithItems(Item item1, Item item2)
     {
+        if (!item1 || !item2) return false;
+
         if (item1.type == Item.ItemType.DICE && item2.type == Item.ItemType.PLUS)
         {
             if (item1.color == item2.color)
@@ -195,7 +197,7 @@ public class Chef : MonoBehaviour
             if (item1.color == item2.color)
             {
                 int numberB = Item.numberMap[item2.number];
-                if (numberB > 6)
+                if (numberB > 1)
                 {
                     GameObject itemObject = Instantiate(itemPrefab);
                     Item item = itemObject.GetComponent<Item>();

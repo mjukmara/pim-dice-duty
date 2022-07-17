@@ -96,10 +96,10 @@ public class ResourceSpawner : MonoBehaviour
         }
 
         List<Item.ItemColor> effectColors = new List<Item.ItemColor>();
-        dotColors.Add(Item.ItemColor.WHITE);
-        dotColors.Add(Item.ItemColor.YELLOW);
-        dotColors.Add(Item.ItemColor.RED);
-        dotColors.Add(Item.ItemColor.BLUE);
+        effectColors.Add(Item.ItemColor.WHITE);
+        effectColors.Add(Item.ItemColor.YELLOW);
+        effectColors.Add(Item.ItemColor.RED);
+        effectColors.Add(Item.ItemColor.BLUE);
 
         {
             SetItem setItem = new SetItem();
